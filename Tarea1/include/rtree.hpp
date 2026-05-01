@@ -15,11 +15,15 @@
  * - left_child: Posición del hijo izquierdo en el archivo (-1 si no tiene)
  * - right_child: Posición del hijo derecho en el archivo (-1 si no tiene)
  */
-struct TreeNode {
-  int id;
-  int value;
-  long left_child;
-  long right_child;
+
+struct Key {
+  float x1, x2, y1, y2;
+};
+
+struct RTreeNode {
+  int k;
+  std::pair<Key, int> child[204];
+  int pad[3];
 };
 
 /**
@@ -85,10 +89,8 @@ namespace TreeUtils {
  * @param nodes Vector de nodos en recorrido preorden
  * @throws Termina el programa si no puede abrir el archivo
  */
-void write_tree_to_file(
-    const std::string &filename,
-    const std::vector<TreeNode> &nodes
-);
+void write_tree_to_file(const std::string &filename,
+                        const std::vector<TreeNode> &nodes);
 
 /**
  * @brief Imprime información detallada de un nodo del BST
