@@ -14,7 +14,10 @@ create_tree: $(SRC_DIR)/create_tree.cpp $(SRC_DIR)/tree.cpp
 search_value: $(SRC_DIR)/search_value.cpp $(SRC_DIR)/tree.cpp
 	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) $^ -o $@
 
+test_load: $(SRC_DIR)/test_load.cpp $(SRC_DIR)/tree.cpp
+	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) $^ -o $@
+
 clean:
-	rm -f create_tree search_value tree.bin
+	rm -f create_tree search_value tree.bin test_load
 
 .PHONY: all clean
