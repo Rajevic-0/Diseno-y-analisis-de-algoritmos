@@ -78,6 +78,18 @@ private:
 namespace TreeUtils {
 
 /**
+ * @brief Lee un conjunto de puntos desde un archivo binario (.bin)
+ *
+ * Esta función carga los datos originales donde cada punto está
+ * representado por dos floats consecutivos (x,y)
+ *
+ * @param path Ruta al archivo binario del dataset
+ * @return std::vector<std::pair<float,float>> Vector con todos los
+ * puntos cargados en memoria
+ */
+std::vector<std::pair<float, float>> load(const std::string &path);
+
+/**
  * @brief Serializa y escribe un R-tree en un archivo binario
  *
  * Esta función recibe un vector de nodos y los escribe secuencialmente 
