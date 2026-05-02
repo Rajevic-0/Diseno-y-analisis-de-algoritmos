@@ -45,6 +45,20 @@ void RTree::search(Key query, int offset, std::vector<std::pair<float,float>> &r
 // Implementación de TreeUtils
 namespace TreeUtils {
 
+std::vector<std::pair<float,float>> load(const std::string &path){
+  std::vector<std::pair<float,float>> points;
+  std::ifstream file(path,std::ios::binary);
+  if (!file.is_open()) {
+    std::cerr << "Error al abrir el dataset binario: " << path << std::endl;
+    return points;
+  }
+  float coord[2];
+  while (file.read(reinterpret_cast<char*>(coord), sizeof(float) * 2)) {
+    points.push_back({coord[0],coord[1]});
+  }
+  return points;
+}
+
 void write_tree_to_file(
     const std::string &filename,
     const std::vector<RTreeNode> &nodes
