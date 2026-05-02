@@ -7,18 +7,21 @@
 #include <vector>
 
 /**
- * @brief Estructura que representa un nodo del BST en disco
- *
- * Cada nodo contiene:
- * - id: Identificador único del nodo
- * - value: Valor almacenado en el nodo
- * - left_child: Posición del hijo izquierdo en el archivo (-1 si no tiene)
- * - right_child: Posición del hijo derecho en el archivo (-1 si no tiene)
+ * @brief Estructura que representa un MBR
  */
 
 struct Key {
   float x1, x2, y1, y2;
 };
+
+/**
+ * @brief Estructura que representa un nodo de un R-tree en disco
+ *
+ * Cada nodo contiene:
+ * - k: Cantidad de entradas en el nodo.
+ * - child: arreglo de pares (MBR, índice), donde el índice apunta a un nodo hijo o es -1 si es una hoja.
+ * - pad: 12 bytes libres para que el tamaño del nodo coincida con el tamaño de un bloque.
+ */
 
 struct RTreeNode {
   int k;
@@ -27,49 +30,46 @@ struct RTreeNode {
 };
 
 /**
- * @brief Clase que representa un BST almacenado en disco
+ * @brief Clase que representa un R-tree almacenado en disco
  *
- * Esta clase permite navegar un BST guardado en un archivo binario.
+ * Esta clase permite navegar un R-tree guardado en memoria externa.
  */
-class BinarySearchTree {
+class RTree {
 public:
   /**
-   * @brief Construye un BST a partir de un archivo binario
-   * @param filename Nombre del archivo que contiene el BST
+   * @brief Construye un R-tree a partir de un archivo binario
+   * @param filename Nombre del archivo que contiene el R-tree
    */
-  BinarySearchTree(const std::string &filename);
+  RTree(const std::string &filename);
 
   /**
-   * @brief Lee y deserializa un nodo del BST desde una posición específica
-   * del archivo binario
+   * @brief Lee un nodo específico desde el  archivo binario
    *
-   * Esta función calcula la posición exacta en bytes en el archivo binario a
-   * partir del índice proporcionado, lee los bytes correspondientes a un nodo,
-   * y los deserializa para reconstruir la estructura TreeNode en memoria.
+   * Esta función calcula la posición exacta como offset*4096 bytes y carga el bloque a memoria.
    * Es responsabilidad del usuario asegurarse de que el offset sea válido,
    * es decir, que exista un nodo en esa posición.
    *
-   * @param offset Posición del nodo en el archivo (índice en preorden,
-   * comenzando desde 0)
-   * @return TreeNode El nodo deserializado desde el archivo
+   * @param offset Índice del bloque/nodo en el archivo
+   * @return RTreeNode Estructura con los datos del nodo cargado
    * @throws Termina el programa si no puede abrir el archivo o leer los bytes
    * del nodo
    */
-  TreeNode read_node_at(int offset) const;
+  RTreeNode read_node_at(int offset) const;
 
   /**
-   * @brief Busca un valor en el BST desde un nodo específico
+   * @brief Realiza una búsqueda en rango en el R-tree
    *
-   * Esta función implementa una búsqueda binaria en el BST, leyendo solo
-   * los nodos necesarios desde el archivo. Si se omite el offset, comienza
+   * Esta función implementa una búsqueda por rango en el R-tree, leyendo solo
+   * los nodos que intersectan con el area de consulta. Si se omite el offset, comienza
    * desde la raíz (offset 0).
    *
-   * @param value Valor a buscar en el BST
+   * @param query El MBR de consulta
    * @param offset Posición del nodo inicial (por defecto 0, la raíz)
+   * @param results Vector donde se guardaran los pares x,y encontrados.
    * @return TreeNode con el valor buscado, o un nodo con id=-1 si no se
    * encuentra
    */
-  TreeNode search(int value, int offset = 0) const;
+  void search(Key query, int offset, std::vector<std::pair<float,float>> &results) const;
 
 private:
   std::string filename;
@@ -78,30 +78,25 @@ private:
 namespace TreeUtils {
 
 /**
- * @brief Serializa y escribe un BST en un archivo binario
+ * @brief Serializa y escribe un R-tree en un archivo binario
  *
- * Esta función recibe un vector de nodos en recorrido preorden y los escribe
- * secuencialmente en un archivo binario. Cada nodo ocupa sizeof(TreeNode)
- * bytes. Los campos left_child y right_child indican los índices de los hijos
- * en el recorrido preorden.
+ * Esta función recibe un vector de nodos y los escribe secuencialmente 
+ * en un archivo binario. Cada nodo ocupa sizeof(RTreeNode) bytes. 
  *
- * @param filename Nombre del archivo donde se escribirá el BST
- * @param nodes Vector de nodos en recorrido preorden
+ * @param filename Nombre del archivo donde se escribirá el R-tree
+ * @param nodes Vector de nodos construidos.
  * @throws Termina el programa si no puede abrir el archivo
  */
 void write_tree_to_file(const std::string &filename,
-                        const std::vector<TreeNode> &nodes);
+                        const std::vector<RTreeNode> &nodes);
 
 /**
- * @brief Imprime información detallada de un nodo del BST
- *
- * Esta función muestra el id y valor del nodo, así como información
- * sobre sus hijos si existen.
- *
- * @param node Nodo a imprimir
- * @param tree BST al que pertenece el nodo (para leer los hijos)
+ * @brief Determina si dos rectándulos intersectan en alguna parte
+ * @param a Primer MBR, buscado
+ * @param b Segundo MBR, área de búsqueda
+ * @return true si hay intersección, false si no
  */
-void print_node_info(const TreeNode &node, const BinarySearchTree &tree);
+bool intersects(Key a, Key b);
 
 } // namespace TreeUtils
 
