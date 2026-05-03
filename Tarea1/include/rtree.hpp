@@ -19,8 +19,10 @@ struct Key {
  *
  * Cada nodo contiene:
  * - k: Cantidad de entradas en el nodo.
- * - child: arreglo de pares (MBR, índice), donde el índice apunta a un nodo hijo o es -1 si es una hoja.
- * - pad: 12 bytes libres para que el tamaño del nodo coincida con el tamaño de un bloque.
+ * - child: arreglo de pares (MBR, índice), donde el índice apunta a un nodo
+ * hijo o es -1 si es una hoja.
+ * - pad: 12 bytes libres para que el tamaño del nodo coincida con el tamaño de
+ * un bloque.
  */
 
 struct RTreeNode {
@@ -45,9 +47,9 @@ public:
   /**
    * @brief Lee un nodo específico desde el  archivo binario
    *
-   * Esta función calcula la posición exacta como offset*4096 bytes y carga el bloque a memoria.
-   * Es responsabilidad del usuario asegurarse de que el offset sea válido,
-   * es decir, que exista un nodo en esa posición.
+   * Esta función calcula la posición exacta como offset*4096 bytes y carga el
+   * bloque a memoria. Es responsabilidad del usuario asegurarse de que el
+   * offset sea válido, es decir, que exista un nodo en esa posición.
    *
    * @param offset Índice del bloque/nodo en el archivo
    * @return RTreeNode Estructura con los datos del nodo cargado
@@ -60,8 +62,8 @@ public:
    * @brief Realiza una búsqueda en rango en el R-tree
    *
    * Esta función implementa una búsqueda por rango en el R-tree, leyendo solo
-   * los nodos que intersectan con el area de consulta. Si se omite el offset, comienza
-   * desde la raíz (offset 0).
+   * los nodos que intersectan con el area de consulta. Si se omite el offset,
+   * comienza desde la raíz (offset 0).
    *
    * @param query El MBR de consulta
    * @param offset Posición del nodo inicial (por defecto 0, la raíz)
@@ -69,7 +71,8 @@ public:
    * @return TreeNode con el valor buscado, o un nodo con id=-1 si no se
    * encuentra
    */
-  void search(Key query, int offset, std::vector<std::pair<float,float>> &results) const;
+  void search(Key query, int offset,
+              std::vector<std::pair<float, float>> &results) const;
 
 private:
   std::string filename;
@@ -92,8 +95,8 @@ std::vector<std::pair<float, float>> load(const std::string &path);
 /**
  * @brief Serializa y escribe un R-tree en un archivo binario
  *
- * Esta función recibe un vector de nodos y los escribe secuencialmente 
- * en un archivo binario. Cada nodo ocupa sizeof(RTreeNode) bytes. 
+ * Esta función recibe un vector de nodos y los escribe secuencialmente
+ * en un archivo binario. Cada nodo ocupa sizeof(RTreeNode) bytes.
  *
  * @param filename Nombre del archivo donde se escribirá el R-tree
  * @param nodes Vector de nodos construidos.
@@ -110,6 +113,12 @@ void write_tree_to_file(const std::string &filename,
  */
 bool intersects(Key a, Key b);
 
+/**
+ * @brief Encuentra el MBR
+ * @param nodo El nodo
+ * @return Key
+ */
+Key mbr(const RTreeNode nodo);
 } // namespace TreeUtils
 
 #endif // TREE_HPP
