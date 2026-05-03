@@ -52,8 +52,26 @@ void sort_tile_recursive(const std::vector<std::pair<Key, int>> pares,
             [](std::pair<Key, int> a, std::pair<Key, int> b) {
               return (a.first.y1 + a.first.y2) < (b.first.y1 + b.first.y2);
             });
+  std::vector<std::pair<Key, int>> nuevo_pares_y;
+  for (int i = 0; i < n * n; i += b * b) {
+    RTreeNode nodo;
+    int fin = std::min(i + b, n);
 
-  sort_tile_recursive(nuevo_pares, nuevo_pares.size());
+    std::copy(nuevo_pares.begin() + i, nuevo_pares.begin() + i + fin,
+              nodo.child);
+
+    nodo.k = fin - i;
+
+    if (n < b) {
+      nodos[0] = nodo;
+      return;
+    }
+
+    nodos.push_back(nodo);
+
+    nuevo_pares_y.push_back({mbr(nodo), nodos.size() - 1});
+  }
+  sort_tile_recursive(nuevo_pares_y, nuevo_pares_y.size());
 }
 
 void s_t_r(const std::string &path, const int n) {
