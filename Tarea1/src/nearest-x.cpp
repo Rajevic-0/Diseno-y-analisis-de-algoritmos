@@ -12,7 +12,7 @@ void nearest_x(const std::string &path, const int n) {
   std::vector<std::pair<Key, int>> pares;
 
   for (int i = 0; i < n; i++) {
-    int x = puntos[i].first, y = puntos[i].second;
+    float x = puntos[i].first, y = puntos[i].second;
     Key k = {x, x, y, y};
     pares.push_back({k, -1});
   }
