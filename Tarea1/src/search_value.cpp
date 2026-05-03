@@ -23,12 +23,13 @@ int main(int argc, char *argv[]) {
   std::cout << "X: [" << query.x1 << " " << query.x2 << "]" << std::endl;
   std::cout << "Y: [" << query.y1 << " " << query.y2 << "]" << std::endl;
 
-  std::vector<std::pair<float,float>> results;
+  std::vector<std::pair<float, float>> results;
   rtree.search(query, 0, results);
 
   std::cout << "Total de puntos encontrados: " << results.size() << std::endl;
-  for (const auto &punto: results) {
-    std::cout << "(x: " << punto.first << ", y: " << punto.second << ")" << std::endl;
-  }
+  /*for (const auto &punto: results) {
+    std::cout << "(x: " << punto.first << ", y: " << punto.second << ")" <<
+  std::endl;
+  }*/
   return 0;
 }
