@@ -1,6 +1,5 @@
 // create_tree.cpp
 #include "../include/rtree.hpp"
-#include "../include/block_size.h"
 #include <iostream>
 #include <vector>
 
@@ -37,8 +36,6 @@ std::vector<RTreeNode> create_sample_rtree() {
 int main() {
   const std::string filename = "rtree.bin";
 
-  long long b = get_block_size();
-
   // Creamos el árbol usando la función auxiliar
   std::vector<RTreeNode> rtree_nodes = create_sample_rtree();
 
@@ -46,6 +43,5 @@ int main() {
   TreeUtils::write_tree_to_file(filename, rtree_nodes);
 
   std::cout << "R-tree serializado en '" << filename << "'." << std::endl;
-  std::cout << "Tamaño de bloque: " << b << " bytes." << std::endl;
   return 0;
 }
