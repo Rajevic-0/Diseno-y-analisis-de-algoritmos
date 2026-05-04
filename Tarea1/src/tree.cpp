@@ -36,7 +36,7 @@ int RTree::search(Key query, int &lecturas, int offset) const {
       if (childVal == -1) {
         puntos++;
       } else {
-        puntos += search(query, childVal, lecturas);
+        puntos += search(query, lecturas, childVal);
       }
     }
   }
