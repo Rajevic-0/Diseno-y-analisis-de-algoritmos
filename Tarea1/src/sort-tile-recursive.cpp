@@ -43,8 +43,8 @@ void sort_tile_recursive(std::vector<std::pair<Key, int>> *pares, const int n) {
 
       nuevo_pares.push_back({TreeUtils::mbr(nodo), nodos.size() - 1});
     }
-    sort_tile_recursive(&nuevo_pares, nuevo_pares.size());
   }
+  sort_tile_recursive(&nuevo_pares, nuevo_pares.size());
 }
 
 std::vector<RTreeNode> s_t_r(const std::string &path, const int n) {

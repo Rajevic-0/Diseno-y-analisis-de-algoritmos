@@ -27,9 +27,9 @@ int main(int argc, char *argv[]) {
   rtree.search(query, 0, results);
 
   std::cout << "Total de puntos encontrados: " << results.size() << std::endl;
-  /*for (const auto &punto: results) {
-    std::cout << "(x: " << punto.first << ", y: " << punto.second << ")" <<
-  std::endl;
-  }*/
+  for (const auto &punto : results) {
+    std::cout << "(x: " << punto.first << ", y: " << punto.second << ")"
+              << std::endl;
+  }
   return 0;
 }
