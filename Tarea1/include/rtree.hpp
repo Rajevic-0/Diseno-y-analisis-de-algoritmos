@@ -71,8 +71,7 @@ public:
    * @return TreeNode con el valor buscado, o un nodo con id=-1 si no se
    * encuentra
    */
-  void search(Key query, int offset,
-              std::vector<std::pair<float, float>> &results) const;
+  int search(Key query, int &lecturas, int offset = 0) const;
 
 private:
   std::string filename;

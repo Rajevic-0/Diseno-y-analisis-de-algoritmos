@@ -1,5 +1,6 @@
 #include "../include/rtree.hpp"
 
+int lecturas = 0;
 // Implementación de RTree
 RTree::RTree(const std::string &filename) { this->filename = filename; }
 
@@ -24,21 +25,22 @@ RTreeNode RTree::read_node_at(int offset) const {
   in.close();
   return node;
 }
-
-void RTree::search(Key query, int offset,
-                   std::vector<std::pair<float, float>> &results) const {
+int RTree::search(Key query, int &lecturas, int offset = 0) const {
   RTreeNode node = read_node_at(offset);
+  lecturas++;
+  int puntos = 0;
   for (int i = 0; i < node.k; i++) {
     Key childK = node.child[i].first;
-    int childMBR = node.child[i].second;
+    int childVal = node.child[i].second;
     if (TreeUtils::intersects(childK, query)) {
-      if (childMBR == -1) {
-        results.push_back({childK.x1, childK.y1});
+      if (childVal == -1) {
+        puntos++;
       } else {
-        search(query, childMBR, results);
+        puntos += search(query, childVal, lecturas);
       }
     }
   }
+  return puntos;
 }
 
 // Implementación de TreeUtils
