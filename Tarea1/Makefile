@@ -17,7 +17,7 @@ search_value: $(SRC_DIR)/search_value.cpp $(SRC_DIR)/tree.cpp
 test_load: $(SRC_DIR)/test_load.cpp $(SRC_DIR)/tree.cpp
 	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) $^ -o $@
 
-nearest_x: $(SRC_DIR)/create_tree.cpp $(SRC_DIR)/tree.cpp $(SRC_DIR)/nearest-x.cpp 
+nearest_x: $(SRC_DIR)/create_tree.cpp $(SRC_DIR)/tree.cpp $(SRC_DIR)/sort-tile-recursive.cpp 
 	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) $^ -o $@
 
 clean:

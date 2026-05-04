@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 
   // Creamos el árbol usando la función auxiliar
   int N = 1 << 15;
-  std::vector<RTreeNode> rtree_nodes = nearest_x(path, N);
+  std::vector<RTreeNode> rtree_nodes = s_t_r(path, N);
 
   // Serializamos el árbol a disco
   TreeUtils::write_tree_to_file(filename, rtree_nodes);
