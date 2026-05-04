@@ -1,11 +1,9 @@
+#include "../include/globals.hpp"
 #include "../include/rtree.hpp"
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
 #include <vector>
-
-int b = 204;
-std::vector<RTreeNode> nodos(1);
 
 void nearest_x_rec(std::vector<std::pair<Key, int>> *pares, const int n) {
   std::sort(pares->begin(), pares->end(),

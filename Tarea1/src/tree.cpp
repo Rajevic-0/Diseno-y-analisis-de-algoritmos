@@ -25,7 +25,7 @@ RTreeNode RTree::read_node_at(int offset) const {
   in.close();
   return node;
 }
-int RTree::search(Key query, int &lecturas, int offset = 0) const {
+int RTree::search(Key query, int &lecturas, int offset) const {
   RTreeNode node = read_node_at(offset);
   lecturas++;
   int puntos = 0;

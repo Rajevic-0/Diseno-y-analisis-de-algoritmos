@@ -1,3 +1,4 @@
+#include "../include/globals.hpp"
 #include "../include/rtree.hpp"
 #include <algorithm>
 #include <cmath>
@@ -5,11 +6,15 @@
 #include <iostream>
 #include <vector>
 
-int b = 204;
-std::vector<RTreeNode> nodos(1);
-
 void sort_tile_recursive(std::vector<std::pair<Key, int>> *pares, const int n) {
-
+  if (n <= b) {
+    RTreeNode nodo;
+    nodo.k = n;
+    if (n > 0)
+      std::copy(pares->begin(), pares->begin() + n, nodo.child);
+    nodos[0] = nodo;
+    return;
+  }
   std::sort(pares->begin(), pares->end(),
             [](std::pair<Key, int> &a, std::pair<Key, int> &b) {
               return (a.first.x1 + a.first.x2) < (b.first.x1 + b.first.x2);

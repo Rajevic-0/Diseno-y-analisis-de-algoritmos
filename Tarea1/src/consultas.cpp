@@ -1,17 +1,12 @@
 // create_tree.cpp
 #include "../include/bulk_loading.hpp"
 #include "../include/rtree.hpp"
-#include <iostream>
-#include <vector>
 #include <chrono>
+#include <iostream>
 #include <random>
+#include <vector>
 
-int main(int argc, char *argv[]) {
-  if (argc < 3) {
-    std::cerr << "Uso: ./test_load <archivo1.bin> <archivo2.bin>" << std::endl;
-    return 1;
-  }
-
+void r_query() {
   RTree random_nx("random-nearest-x.bin");
   RTree random_str("random-str.bin");
   RTree europa_nx("europa-nearest-x.bin");
@@ -30,20 +25,21 @@ int main(int argc, char *argv[]) {
     std::uniform_real_distribution<float> dist(0.0, 1.0 - s[i]);
 
     for (int j = 0; j < 100; j++) {
-        float x = dist(gen);
-        float y = dist(gen);
-        cuadrado = {x, x+s[i], y, y+s[i]};
-        
-        puntos[i] += random_nx.search(cuadrado, lecturas[i]);
-        puntos[i] += random_str.search(cuadrado, lecturas[i]);
-        puntos[i] += europa_nx.search(cuadrado, lecturas[i]);
-        puntos[i] += europa_str.search(cuadrado, lecturas[i]);
+      float x = dist(gen);
+      float y = dist(gen);
+      cuadrado = {x, x + s[i], y, y + s[i]};
+
+      puntos[i] += random_nx.search(cuadrado, lecturas[i]);
+      puntos[i] += random_str.search(cuadrado, lecturas[i]);
+      puntos[i] += europa_nx.search(cuadrado, lecturas[i]);
+      puntos[i] += europa_str.search(cuadrado, lecturas[i]);
     }
 
     std::cout << "------ s = " << s[i] << " ------" << std::endl;
-    std::cout << "Promedio de lecturas a disco: " << lecturas[i] / 100  << std::endl;
-    std::cout << "Promedio de puntos encontrados: " << puntos[i] / 100  << std::endl;
+    std::cout << "Promedio de lecturas a disco: " << lecturas[i] / 100
+              << std::endl;
+    std::cout << "Promedio de puntos encontrados: " << puntos[i] / 100
+              << std::endl;
   }
-
-  return 0;
+  return;
 }

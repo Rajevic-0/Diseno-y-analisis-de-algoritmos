@@ -1,5 +1,5 @@
-#ifndef TREE_HPP
-#define TREE_HPP
+#ifndef RTREE_HPP
+#define RTREE_HPP
 
 #include <fstream>
 #include <iostream>
@@ -120,4 +120,4 @@ bool intersects(Key a, Key b);
 Key mbr(const RTreeNode nodo);
 } // namespace TreeUtils
 
-#endif // TREE_HPP
+#endif

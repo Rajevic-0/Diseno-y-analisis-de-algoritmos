@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
   const std::string filename = "rtree.bin";
 
   // Creamos el árbol usando la función auxiliar
-  int N = 1 << 15;
+  int N = 1 << 17;
   std::vector<RTreeNode> rtree_nodes = s_t_r(path, N);
 
   // Serializamos el árbol a disco
