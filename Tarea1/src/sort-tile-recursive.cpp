@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 
-void sort_tile_recursive(std::vector<std::pair<Key, int>> *pares, const int n) {
+void sort_tile_recursive(std::vector<std::pair<Key, int>> *pares, const int n, std::vector<RTreeNode> &nodos) {
   if (n <= b) {
     RTreeNode nodo;
     nodo.k = n;
@@ -49,12 +49,13 @@ void sort_tile_recursive(std::vector<std::pair<Key, int>> *pares, const int n) {
       nuevo_pares.push_back({TreeUtils::mbr(nodo), nodos.size() - 1});
     }
   }
-  sort_tile_recursive(&nuevo_pares, nuevo_pares.size());
+  sort_tile_recursive(&nuevo_pares, nuevo_pares.size(), nodos);
 }
 
 std::vector<RTreeNode> s_t_r(const std::string &path, const int n) {
   std::vector<std::pair<float, float>> puntos = TreeUtils::load(path);
   std::vector<std::pair<Key, int>> pares;
+  std::vector<RTreeNode> nodos(1);
 
   for (int i = 0; i < n; i++) {
     float x = puntos[i].first, y = puntos[i].second;
@@ -62,6 +63,6 @@ std::vector<RTreeNode> s_t_r(const std::string &path, const int n) {
     pares.push_back({k, -1});
   }
 
-  sort_tile_recursive(&pares, pares.size());
+  sort_tile_recursive(&pares, pares.size(), nodos);
   return nodos;
 }

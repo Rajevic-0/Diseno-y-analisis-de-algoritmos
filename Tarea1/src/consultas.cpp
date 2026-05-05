@@ -18,8 +18,8 @@ void r_query() {
   std::mt19937 gen(rd());
 
   Key cuadrado;
-  std::vector<int> puntos(5, 0);
-  std::vector<int> lecturas(5, 0);
+  std::vector<std::vector<int>> puntos(4, std::vector<int>(5, 0));
+  std::vector<std::vector<int>> lecturas(4, std::vector<int>(5, 0));
 
   for (int i = 0; i < 5; i++) {
     std::uniform_real_distribution<float> dist(0.0, 1.0 - s[i]);
@@ -29,16 +29,32 @@ void r_query() {
       float y = dist(gen);
       cuadrado = {x, x + s[i], y, y + s[i]};
 
-      puntos[i] += random_nx.search(cuadrado, lecturas[i]);
-      puntos[i] += random_str.search(cuadrado, lecturas[i]);
-      puntos[i] += europa_nx.search(cuadrado, lecturas[i]);
-      puntos[i] += europa_str.search(cuadrado, lecturas[i]);
+      puntos[0][i] += random_nx.search(cuadrado, lecturas[0][i]);
+      puntos[1][i] += random_str.search(cuadrado, lecturas[1][i]);
+      puntos[2][i] += europa_nx.search(cuadrado, lecturas[2][i]);
+      puntos[3][i] += europa_str.search(cuadrado, lecturas[3][i]);
     }
 
     std::cout << "------ s = " << s[i] << " ------" << std::endl;
-    std::cout << "Promedio de lecturas a disco: " << lecturas[i] / 100
+    std::cout << "---- random nx ----" << std::endl;
+    std::cout << "Promedio de lecturas a disco: " << lecturas[0][i] / 100
               << std::endl;
-    std::cout << "Promedio de puntos encontrados: " << puntos[i] / 100
+    std::cout << "Promedio de puntos encontrados: " << puntos[0][i] / 100
+              << std::endl;
+    std::cout << "---- random str ----" << std::endl;
+    std::cout << "Promedio de lecturas a disco: " << lecturas[1][i] / 100
+              << std::endl;
+    std::cout << "Promedio de puntos encontrados: " << puntos[1][i] / 100
+              << std::endl;
+    std::cout << "---- europa nx ----" << std::endl;
+    std::cout << "Promedio de lecturas a disco: " << lecturas[2][i] / 100
+              << std::endl;
+    std::cout << "Promedio de puntos encontrados: " << puntos[2][i] / 100
+              << std::endl;
+    std::cout << "---- europa str ----" << std::endl;
+    std::cout << "Promedio de lecturas a disco: " << lecturas[3][i] / 100
+              << std::endl;
+    std::cout << "Promedio de puntos encontrados: " << puntos[3][i] / 100
               << std::endl;
   }
   return;
