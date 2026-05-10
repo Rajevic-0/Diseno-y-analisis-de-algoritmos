@@ -59,3 +59,14 @@ void r_query() {
   }
   return;
 }
+
+void bonus_query() {
+  RTree europa_bonus("europa-bonus.bin");
+  Key cuadrado;
+  cuadrado = {-11, 35, 35, 72};
+  int lecturas = 0;
+  std::vector<Key> results = europa_bonus.searchPoints(cuadrado, lecturas);
+  for (const auto &punto : results) {
+    std::cout << "(x: " << punto.x1 << ", y: " << punto.y1 << ")" << std::endl;
+  }
+}

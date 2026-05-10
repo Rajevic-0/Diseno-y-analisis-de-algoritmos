@@ -73,6 +73,8 @@ public:
    */
   int search(Key query, int &lecturas, int offset = 0) const;
 
+  std::vector<Key> searchPoints(Key query, int &lecturas, int offset = 0) const;
+
 private:
   std::string filename;
 };

@@ -75,3 +75,13 @@ void construction(std::string path1, std::string path2) {
   }
   return;
 }
+
+void bonus_construction(std::string path) {
+  std::vector<RTreeNode> rtree_nodes;
+  int N = 1 << 24;
+  rtree_nodes = s_t_r(path, N);
+  const std::string filename = "europa-bonus.bin";
+  TreeUtils::write_tree_to_file(filename, rtree_nodes);
+  std::cout << "R-tree serializado en '" << filename << "'." << std::endl;
+  return;
+}

@@ -11,16 +11,26 @@ int main(int argc, char *argv[]) {
         << "  2) ./test query" << std::endl;
     return 1;
   }
+  std::string bonus = argv[0];
   std::string type = argv[1];
-  if (type == "construction") {
-    if (argc < 4) {
-      std::cerr << "Uso: ./test construction <archivo1.bin> <archivo2.bin>"
-                << std::endl;
-      return 1;
-    }
-    std::string path1 = argv[2], path2 = argv[3];
-    construction(path1, path2);
-  } else
-    r_query();
-  return 0;
+  if (bonus == "./bonus") {
+    if (type == "construction") {
+      std::string path = argv[2];
+      bonus_construction(path);
+    } else if (type == "query")
+      bonus_query();
+    return 0;
+  } else {
+    if (type == "construction") {
+      if (argc < 4) {
+        std::cerr << "Uso: ./test construction <archivo1.bin> <archivo2.bin>"
+                  << std::endl;
+        return 1;
+      }
+      std::string path1 = argv[2], path2 = argv[3];
+      construction(path1, path2);
+    } else if (type == "query")
+      r_query();
+    return 0;
+  }
 }

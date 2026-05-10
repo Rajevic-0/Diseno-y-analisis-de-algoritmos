@@ -8,6 +8,8 @@
 #include <vector>
 
 void construction(std::string path1, std::string path2);
+void bonus_construction(std::string path);
 void r_query();
+void bonus_query();
 
 #endif

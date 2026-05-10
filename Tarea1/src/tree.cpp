@@ -43,6 +43,26 @@ int RTree::search(Key query, int &lecturas, int offset) const {
   return puntos;
 }
 
+std::vector<Key> RTree::searchPoints(Key query, int &lecturas,
+                                     int offset) const {
+  RTreeNode node = read_node_at(offset);
+  lecturas++;
+  std::vector<Key> puntos;
+  for (int i = 0; i < node.k; i++) {
+    Key childK = node.child[i].first;
+    int childVal = node.child[i].second;
+    if (TreeUtils::intersects(childK, query)) {
+      if (childVal == -1) {
+        puntos.push_back(childK);
+      } else {
+        std::vector<Key> ans = searchPoints(query, lecturas, childVal);
+        puntos.insert(puntos.end(), ans.begin(), ans.end());
+      }
+    }
+  }
+  return puntos;
+}
+
 // Implementación de TreeUtils
 namespace TreeUtils {
 

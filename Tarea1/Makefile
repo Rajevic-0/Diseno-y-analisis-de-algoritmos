@@ -23,6 +23,9 @@ nearest_x: $(SRC_DIR)/create_tree.cpp $(SRC_DIR)/tree.cpp $(SRC_DIR)/sort-tile-r
 test:  $(SRC_DIR)/globals.cpp   $(SRC_DIR)/tree.cpp  $(SRC_DIR)/construction.cpp $(SRC_DIR)/consultas.cpp $(SRC_DIR)/sort-tile-recursive.cpp  $(SRC_DIR)/nearest-x.cpp $(SRC_DIR)/main.cpp 
 	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) $^ -o $@
 
+bonus:  $(SRC_DIR)/globals.cpp   $(SRC_DIR)/tree.cpp  $(SRC_DIR)/construction.cpp $(SRC_DIR)/consultas.cpp $(SRC_DIR)/sort-tile-recursive.cpp  $(SRC_DIR)/nearest-x.cpp $(SRC_DIR)/main.cpp 
+	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) $^ -o $@
+
 clean:
 	rm -f create_tree search_value tree.bin test_load
 
