@@ -13,12 +13,20 @@ void r_query() {
   RTree europa_str("europa-str.bin");
 
   std::vector<float> s = {0.0025, 0.005, 0.01, 0.025, 0.05};
+  std::vector<std::string> nombres = {"random-nx", "random-str", "europa-nx", "europa-str"};
+  int suma;
 
   std::random_device rd;
   std::mt19937 gen(rd());
 
   Key cuadrado;
-  std::vector<std::vector<int>> puntos(4, std::vector<int>(5, 0));
+  std::vector<std::vector<std::vector<int>>> puntos(
+    4,
+    std::vector<std::vector<int>>(
+      5,
+      std::vector<int>(100, 0)
+    )
+  );
   std::vector<std::vector<int>> lecturas(4, std::vector<int>(5, 0));
 
   for (int i = 0; i < 5; i++) {
@@ -29,33 +37,23 @@ void r_query() {
       float y = dist(gen);
       cuadrado = {x, x + s[i], y, y + s[i]};
 
-      puntos[0][i] += random_nx.search(cuadrado, lecturas[0][i]);
-      puntos[1][i] += random_str.search(cuadrado, lecturas[1][i]);
-      puntos[2][i] += europa_nx.search(cuadrado, lecturas[2][i]);
-      puntos[3][i] += europa_str.search(cuadrado, lecturas[3][i]);
+      puntos[0][i][j] = random_nx.search(cuadrado, lecturas[0][i]);
+      puntos[1][i][j] = random_str.search(cuadrado, lecturas[1][i]);
+      puntos[2][i][j] = europa_nx.search(cuadrado, lecturas[2][i]);
+      puntos[3][i][j] = europa_str.search(cuadrado, lecturas[3][i]);
     }
 
     std::cout << "------ s = " << s[i] << " ------" << std::endl;
-    std::cout << "---- random nx ----" << std::endl;
-    std::cout << "Promedio de lecturas a disco: " << lecturas[0][i] / 100
+    for (int k = 0; k < 4; k++) {
+      suma = std::accumulate(puntos[k][i].begin(), puntos[k][i].end(), 0);
+
+      std::cout << "---- " << nombres[k] << " ----" << std::endl;
+      std::cout << "Promedio de lecturas a disco: " << lecturas[k][i] / 100
               << std::endl;
-    std::cout << "Promedio de puntos encontrados: " << puntos[0][i] / 100
+      std::cout << "Promedio de puntos encontrados: " << suma / 100
               << std::endl;
-    std::cout << "---- random str ----" << std::endl;
-    std::cout << "Promedio de lecturas a disco: " << lecturas[1][i] / 100
-              << std::endl;
-    std::cout << "Promedio de puntos encontrados: " << puntos[1][i] / 100
-              << std::endl;
-    std::cout << "---- europa nx ----" << std::endl;
-    std::cout << "Promedio de lecturas a disco: " << lecturas[2][i] / 100
-              << std::endl;
-    std::cout << "Promedio de puntos encontrados: " << puntos[2][i] / 100
-              << std::endl;
-    std::cout << "---- europa str ----" << std::endl;
-    std::cout << "Promedio de lecturas a disco: " << lecturas[3][i] / 100
-              << std::endl;
-    std::cout << "Promedio de puntos encontrados: " << puntos[3][i] / 100
-              << std::endl;
+      std::cout << "Desviación estandar: " <<  << std::endl;
+    }
   }
   return;
 }
