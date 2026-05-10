@@ -5,6 +5,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <cmath>
 
 void r_query() {
   RTree random_nx("random-nearest-x.bin");
@@ -43,16 +44,24 @@ void r_query() {
       puntos[3][i][j] = europa_str.search(cuadrado, lecturas[3][i]);
     }
 
+
     std::cout << "------ s = " << s[i] << " ------" << std::endl;
     for (int k = 0; k < 4; k++) {
       suma = std::accumulate(puntos[k][i].begin(), puntos[k][i].end(), 0);
+      double promedio = (double)suma / 100.0;
+      double suma_sq = 0;
+      for (int p : puntos[k][i]) {
+        suma_sq += (double)p*p;
+      }
+      double varianza = (suma_sq / 100.0) - (promedio* promedio);
+      double desviacion = std::sqrt(std::abs(varianza));
 
       std::cout << "---- " << nombres[k] << " ----" << std::endl;
       std::cout << "Promedio de lecturas a disco: " << lecturas[k][i] / 100
               << std::endl;
       std::cout << "Promedio de puntos encontrados: " << suma / 100
               << std::endl;
-      std::cout << "Desviación estandar: " <<  << std::endl;
+      std::cout << "Desviación estandar: " << desviacion << std::endl;
     }
   }
   return;
