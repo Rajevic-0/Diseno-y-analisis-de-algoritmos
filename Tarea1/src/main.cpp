@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
   }
   std::string bonus = argv[0];
   std::string type = argv[1];
-  if (bonus == "./bonus") {
+  if (bonus.contains("bonus")) {
     if (type == "construction") {
       std::string path = argv[2];
       bonus_construction(path);
