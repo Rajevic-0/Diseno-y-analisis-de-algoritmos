@@ -7,10 +7,10 @@
 #include "../include/bulk_loading.hpp"
 #include "../include/rtree.hpp"
 #include <chrono>
+#include <cmath>
 #include <iostream>
 #include <random>
 #include <vector>
-#include <cmath>
 
 /**
  * @brief Ejecuta el set de pruebas definido por el enunciado.
@@ -26,7 +26,8 @@ void r_query() {
   RTree europa_str("europa-str.bin");
 
   std::vector<float> s = {0.0025, 0.005, 0.01, 0.025, 0.05};
-  std::vector<std::string> nombres = {"random-nx", "random-str", "europa-nx", "europa-str"};
+  std::vector<std::string> nombres = {"random-nx", "random-str", "europa-nx",
+                                      "europa-str"};
   int suma;
 
   std::random_device rd;
@@ -34,12 +35,7 @@ void r_query() {
 
   Key cuadrado;
   std::vector<std::vector<std::vector<int>>> puntos(
-    4,
-    std::vector<std::vector<int>>(
-      5,
-      std::vector<int>(100, 0)
-    )
-  );
+      4, std::vector<std::vector<int>>(5, std::vector<int>(100, 0)));
   std::vector<std::vector<int>> lecturas(4, std::vector<int>(5, 0));
 
   for (int i = 0; i < 5; i++) {
@@ -56,16 +52,15 @@ void r_query() {
       puntos[3][i][j] = europa_str.search(cuadrado, lecturas[3][i]);
     }
 
-
     std::cout << "------ s = " << s[i] << " ------" << std::endl;
     for (int k = 0; k < 4; k++) {
       suma = std::accumulate(puntos[k][i].begin(), puntos[k][i].end(), 0);
       double promedio = (double)suma / 100.0;
       double suma_sq = 0;
       for (int p : puntos[k][i]) {
-        suma_sq += (double)p*p;
+        suma_sq += (double)p * p;
       }
-      double varianza = (suma_sq / 100.0) - (promedio* promedio);
+      double varianza = (suma_sq / 100.0) - (promedio * promedio);
       double desviacion = std::sqrt(std::abs(varianza));
 
       std::cout << "---- " << nombres[k] << " ----" << std::endl;
