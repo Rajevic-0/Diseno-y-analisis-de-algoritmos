@@ -42,7 +42,10 @@ make test
 .\test.exe construction <dataset_1> <dataset_2>
 .\test.exe query
 ```
-
+En windows make no viene instalado por defecto asi que en caso de no funcionar el compilar se puede probar con 
+```bash
+mingw32-make test
+```
 Y para ejecutar bonus_query (consulta que devuelve los puntos de latitud/longitud cercanas a Italia)
 
 Linux
@@ -56,6 +59,10 @@ Windows
 make bonus
 .\bonus.exe construction <dataset>
 .\bonus.exe query
+```
+Como fue descrito para test, en caso de no funcionar make se puede intentar con 
+```bash
+mingw32-make bonus
 ```
 Este proyecto esta pensado para ser usado con los datasets encontrados en 
 [Descargar datasets](https://github.com/claugaete/tarea1-cc4102-2026-1/releases/tag/Datos)
