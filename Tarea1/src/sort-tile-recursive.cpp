@@ -16,14 +16,16 @@
  * Función auxiliar que implementa STR de forma recursiva.
  * 1. Se ordenan los rectángulos por el centro de la coordenada X.
  * 2. Se juntan en sqrt(n/b) grupos consecutivos.
- * 3. Se ordenan los rectángulos según la coordenada Y del centro del triángulo y se
- * dividen nuevamente en sqrt(n/b) grupos para cada grupo del paso 2.
- * 4. Se guardan los n/b nodos creados en el vector de nodos dejando el primer espacio vacío.
+ * 3. Se ordenan los rectángulos según la coordenada Y del centro del triángulo
+ * y se dividen nuevamente en sqrt(n/b) grupos para cada grupo del paso 2.
+ * 4. Se guardan los n/b nodos creados en el vector de nodos dejando el primer
+ * espacio vacío.
  * 5. Se calcula su MBR y se generan n/b pares.
- * 6. Si los n/b pares entran en un nodo, se crea el nodo raíz con todos los pares y
- * se guarda en la primera posición, si no se hace la recursión STR.
+ * 6. Si los n/b pares entran en un nodo, se crea el nodo raíz con todos los
+ * pares y se guarda en la primera posición, si no se hace la recursión STR.
  */
-void sort_tile_recursive(std::vector<std::pair<Key, int>> *pares, const int n, std::vector<RTreeNode> &nodos) {
+void sort_tile_recursive(std::vector<std::pair<Key, int>> *pares, const int n,
+                         std::vector<RTreeNode> &nodos) {
   if (n <= b) {
     RTreeNode nodo;
     nodo.k = n;
@@ -70,7 +72,7 @@ void sort_tile_recursive(std::vector<std::pair<Key, int>> *pares, const int n, s
 }
 
 /**
- * Función para la construcción de NX.
+ * Función para la construcción de STR.
  * Se cargan los puntos desde el archivo binario, se transforman en hojas y,
  * finalmente, se llama a la función auxiliar.
  */
