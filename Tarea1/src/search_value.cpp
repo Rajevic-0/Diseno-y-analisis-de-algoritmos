@@ -8,9 +8,9 @@
 #include <iostream>
 
 /**
- * @brief Función de test para verificar 
+ * @brief Función de test para verificar
  * @param argc Cantidad de argumentos.
- * @param argv Array de strings con parámetros. 
+ * @param argv Array de strings con parámetros.
  * @return int Código de éxito o error.
  */
 int main(int argc, char *argv[]) {
@@ -33,13 +33,13 @@ int main(int argc, char *argv[]) {
   std::cout << "X: [" << query.x1 << " " << query.x2 << "]" << std::endl;
   std::cout << "Y: [" << query.y1 << " " << query.y2 << "]" << std::endl;
 
-  std::vector<std::pair<float, float>> results;
-  rtree.search(query, 0, results);
+  std::vector<Key> results;
+  int lecturas = 0;
+  results = rtree.searchPoints(query, lecturas);
 
   std::cout << "Total de puntos encontrados: " << results.size() << std::endl;
   for (const auto &punto : results) {
-    std::cout << "(x: " << punto.first << ", y: " << punto.second << ")"
-              << std::endl;
+    std::cout << "(x: " << punto.x1 << ", y: " << punto.x2 << ")" << std::endl;
   }
   return 0;
 }
