@@ -57,5 +57,15 @@ make bonus
 .\bonus.exe construction <dataset>
 .\bonus.exe query
 ```
-Este proyecto esta pensado para ser usado con los datasets encontrados en https://github.com/claugaete/tarea1-cc4102-2026-1/releases/tag/Datos. Siendo <dataset_1> = random.bin, <dataset_2> = europa.bin y <dataset> = europa_bonus.bin.
+Este proyecto esta pensado para ser usado con los datasets encontrados en 
+[Descargar datasets](https://github.com/claugaete/tarea1-cc4102-2026-1/releases/tag/Datos)
 
+De la siguiente manera:
+
+| Dataset | Archivo |
+|---|---|
+| Dataset 1 | `random.bin` |
+| Dataset 2 | `europa.bin` |
+| Dataset Bonus | `europa_bonus.bin` |
+
+Puede ser ejecutado con otros datasets pero los nombres no coincidiran con lo ejecutado, ver src/main.cpp, src/construction.cpp y src/consultas.cpp si se quiere modificar este proyecto para ser ejecutado con otros datasets de puntos.
