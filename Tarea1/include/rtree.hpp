@@ -73,6 +73,16 @@ public:
    */
   int search(Key query, int &lecturas, int offset = 0) const;
 
+    /**
+   * @brief Buscador de puntos específicos dentro de un rango.
+   * Esta función implementa una búsqueda por rango en el R-tree, leyendo solo
+   * los nodos que intersectan con el area de consulta. Si se omite el offset,
+   * comienza desde la raíz (offset 0).
+   * @param query MBR de consulta.
+   * @param lecturas Contador de la cantidad de accesos al disco.
+   * @offset Posición del nodo inicial (por defecto la raíz, 0).
+   * @return Vector con los puntos dentro del área de búsqueda.
+   */
   std::vector<Key> searchPoints(Key query, int &lecturas, int offset = 0) const;
 
 private:
