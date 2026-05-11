@@ -1,4 +1,9 @@
-// create_tree.cpp
+/**
+ * consultas.cpp
+ * @brief Experimentación y evaluación del R-Tree.
+ * Realiza consultas de rango aleatorias sobre los datasetspara comprobar
+ * el rendimiento de los algoritmos de construcción masiva.
+ */
 #include "../include/bulk_loading.hpp"
 #include "../include/rtree.hpp"
 #include <chrono>
@@ -7,6 +12,13 @@
 #include <vector>
 #include <cmath>
 
+/**
+ * @brief Ejecuta el set de pruebas definido por el enunciado.
+ * 1. Se itera sobre 5 tamaños de lado 's'
+ * 2. Se generan 100 coordenadas aleatorias para cada 's'
+ * 3. Ejecuta la búsqueda en los 4 árboles
+ * 4. Calcula y reporta el promedio de lecturas, puntos encontrados y su desviación estándar.
+ */
 void r_query() {
   RTree random_nx("random-nearest-x.bin");
   RTree random_str("random-str.bin");
@@ -67,6 +79,14 @@ void r_query() {
   return;
 }
 
+/**
+ * @brief Ejecuta el set de pruebas definido por el enunciado para el bonus.
+ * Se recuperan las coordenadas exactas de los puntos en un área de Europa.
+ * 1. Se carga el R-Tree.
+ * 2. Se define un MBR de consulta.
+ * 3. Utilizamos 'searchPoints' para obtener los (x,y) de los resultados.
+ * 4. Imprime las coordenadas encontradas.
+ */
 void bonus_query() {
   RTree europa_bonus("europa-bonus.bin");
   Key cuadrado;

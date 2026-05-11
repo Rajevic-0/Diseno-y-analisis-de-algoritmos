@@ -1,9 +1,19 @@
+//main.cpp
 #include "../include/bulk_loading.hpp"
 #include "../include/creation.hpp"
 #include "../include/rtree.hpp"
 #include <chrono>
 #include <iostream>
 #include <vector>
+
+/**
+ * @brief Función main para ejecución de comandos.
+ * @param argc Cantidad de argumentos.
+ * @param argv Array de strings con parámetros.
+ *   - argv[1]: Acción a realizar.
+ *   - argv[2] y argv[3]: Rutas de archivos.
+ * @return int Código de éxito o error.
+ */
 int main(int argc, char *argv[]) {
   if (argc < 2) {
     std::cerr

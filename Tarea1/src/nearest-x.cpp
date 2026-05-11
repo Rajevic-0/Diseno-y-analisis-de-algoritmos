@@ -1,3 +1,9 @@
+/**
+ * nearest-x.cpp
+ * @breaf Implementación para bulk loading Nearest-X.
+ * Algoritmo que construye el R-Tree ordenando sus elementos por el centro de la
+ * coordenada X y agrupándolos en bloques de tamaño b.
+ */
 #include "../include/globals.hpp"
 #include "../include/rtree.hpp"
 #include <algorithm>
@@ -5,6 +11,17 @@
 #include <iostream>
 #include <vector>
 
+/**
+ * @brief Función auxiliar recursiva para construir los niveles del árbol.
+ * @param pares Puntero a un vector de pares
+ * @param nodos Referencia a vector global donde se almacenan los nodos.
+ * 1. Se ordenan todos los elementos según el centro de su coordenada X.
+ * 2. Se agrupan los elementos ordenados en bloques de tamaño b.
+ * 3. Guardar los n/b nodos en el vector de nodos dejando el primer espacio vacío.
+ * 4. Se calcula el MBR y se generan n/b pares para cada nodo creado.
+ * 5. Si los n/b pares entran en un nodo, se crea la raíz, si no se aplica NX
+ * recursivamente a todos los pares.
+ */
 void nearest_x_rec(std::vector<std::pair<Key, int>> *pares, const int n, std::vector<RTreeNode> &nodos) {
   std::sort(pares->begin(), pares->end(),
             [](std::pair<Key, int> &a, std::pair<Key, int> &b) {
@@ -34,6 +51,11 @@ void nearest_x_rec(std::vector<std::pair<Key, int>> *pares, const int n, std::ve
   nearest_x_rec(&nuevo_pares, nuevo_pares.size(), nodos);
 }
 
+/**
+ * Función para la construcción de NX.
+ * Se cargan los puntos desde el archivo binario, se transforman en hojas y,
+ * finalmente, se llama a la función auxiliar.
+ */
 std::vector<RTreeNode> nearest_x(const std::string &path, const int n) {
   std::vector<std::pair<float, float>> puntos = TreeUtils::load(path);
   std::vector<std::pair<Key, int>> pares;
