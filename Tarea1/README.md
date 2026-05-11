@@ -29,14 +29,14 @@ Tarea1/
 
 Para ejecutar el proyecto uno puede hacer:
 
-Linux
+### Linux
 ```bash
 make test
 ./test construction <dataset_1> <dataset_2>
 ./test query
 ```
 
-Windows
+### Windows
 ```bash
 make test
 .\test.exe construction <dataset_1> <dataset_2>
@@ -48,13 +48,13 @@ mingw32-make test
 ```
 Y para ejecutar bonus_query (consulta que devuelve los puntos de latitud/longitud cercanas a Italia)
 
-Linux
+### Linux
 ```bash
 make bonus
 ./bonus construction <dataset>
 ./bonus query
 ```
-Windows
+### Windows
 ```bash
 make bonus
 .\bonus.exe construction <dataset>
@@ -64,6 +64,15 @@ Como fue descrito para test, en caso de no funcionar make se puede intentar con
 ```bash
 mingw32-make bonus
 ```
+### Guardar en .txt
+
+Si uno quiere guardar los datos obtenidos en un archivo de texto para luego graficarlo puede hacer 
+```bash
+./bonus query > bonus.txt
+```
+Esto funciona para cualquiera de los comandos ejecutables previamente escritos (los que no llevan make). El codigo previamente escrito guarda los puntos obtenidos en la query bonus para luego ser graficados con algun script.
+
+## Datasets
 Este proyecto esta pensado para ser usado con los datasets encontrados en 
 [Descargar datasets](https://github.com/claugaete/tarea1-cc4102-2026-1/releases/tag/Datos)
 
