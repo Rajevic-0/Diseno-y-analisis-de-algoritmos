@@ -1,8 +1,18 @@
-// search_value.cpp
+/**
+ * search_value.cpp
+ * Archivo que contiene un test para verificar la funcionalidad de la búsqueda
+ * de valores.
+ */
 #include "../include/rtree.hpp"
 #include <cstdlib>
 #include <iostream>
 
+/**
+ * @brief Función de test para verificar 
+ * @param argc Cantidad de argumentos.
+ * @param argv Array de strings con parámetros. 
+ * @return int Código de éxito o error.
+ */
 int main(int argc, char *argv[]) {
   if (argc != 5) {
     std::cerr << "Uso: ./search_value <x1> <x2> <y1> <y2>" << std::endl;

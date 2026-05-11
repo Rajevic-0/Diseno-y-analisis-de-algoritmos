@@ -1,9 +1,22 @@
+/**
+ * tree.cpp
+ * @brief Implementación de la gestión del R-Tree en la memoria externa.
+ * Contiene la lógica para interactuar con archivo binario, realizar
+ * lecturas a bloques del disco y ejecutar búsquedas espaciales.
+ */
 #include "../include/rtree.hpp"
 
+// Contador para información de las lecturas al disco.
 int lecturas = 0;
-// Implementación de RTree
+// Implementación de RTree.
 RTree::RTree(const std::string &filename) { this->filename = filename; }
 
+/**
+ * @brief Calcula la posición física de un nodo mediante la fórmula
+ * file_offset = offset * sizeof(RTreeNode).
+ * Como el tamaño de RTreeNode es de 4096 bytes, sabemos que cada lectura
+ * está alineada con el tamaño de un bloque.
+ */
 RTreeNode RTree::read_node_at(int offset) const {
   RTreeNode node;
   std::ifstream in(filename, std::ios::binary);
@@ -25,6 +38,16 @@ RTreeNode RTree::read_node_at(int offset) const {
   in.close();
   return node;
 }
+
+/**
+ * Implementa la búsqueda en rango recursiva devolviendo la cantidad de puntos
+ * dentro de un rango.
+ * Lecturas se incrementa cada vez que se invoca a read_node_at
+ * Se itera sobre las k entradas del nodo, para cada nodo se verifica si su
+ * MBR intersecta con el área de búsqueda.
+ * Si el índice es -1 nos encontramos en un punto y lo añadimos a nuestro contador.
+ * Si el índice es positivo, llamamos recursivamente a search usando el nuevo valor.
+ */
 int RTree::search(Key query, int &lecturas, int offset) const {
   RTreeNode node = read_node_at(offset);
   lecturas++;
@@ -43,6 +66,14 @@ int RTree::search(Key query, int &lecturas, int offset) const {
   return puntos;
 }
 
+/**
+ * Buscador de los puntos específicos que están dentro de un rango.
+ * Se incrementa lecturas cada vez que se invoca a read_node_at.
+ * Se itera sobre las k entradas del nodo, para cada nodo se verifica si su
+ * MBR intersecta con el área de búsqueda.
+ * Si el índice es -1 nos encontramos en un punto y lo añadimos a nuestro contador.
+ * Si el índice es positivo, llamamos recursivamente a search usando el nuevo valor.
+ */
 std::vector<Key> RTree::searchPoints(Key query, int &lecturas,
                                      int offset) const {
   RTreeNode node = read_node_at(offset);
@@ -66,6 +97,11 @@ std::vector<Key> RTree::searchPoints(Key query, int &lecturas,
 // Implementación de TreeUtils
 namespace TreeUtils {
 
+/**
+ * Carga los datos desde los datasets binarios.
+ * Lee pares de floats y los almacena dentro de un vector.
+ * Función encargada de preparar los datos para el bulk-loading
+ */
 std::vector<std::pair<float, float>> load(const std::string &path) {
   std::vector<std::pair<float, float>> points;
   std::ifstream file(path, std::ios::binary);
@@ -80,6 +116,11 @@ std::vector<std::pair<float, float>> load(const std::string &path) {
   return points;
 }
 
+/**
+ * Serializa la estructura hacia un archivo binario.
+ * Se recorre el vector de nodos creado y escribe cada uno de forma contigua
+ * en el archivo.
+ */
 void write_tree_to_file(const std::string &filename,
                         const std::vector<RTreeNode> &nodes) {
   std::ofstream out(filename, std::ios::binary);
@@ -96,10 +137,18 @@ void write_tree_to_file(const std::string &filename,
   out.close();
 }
 
+/**
+ * Verifica si dos rectángulos colisionan.
+ */
 bool intersects(Key a, Key b) {
   return !(a.x1 > b.x2 || a.x2 < b.x1 || a.y1 > b.y2 || a.y2 < b.y1);
 }
 
+/**
+ * Calcula el MBR de un nodo.
+ * Recorre todas las entradas de un RTree y encuentra los valores extremos
+ * que contienen todos los hijos.
+ */
 Key mbr(const RTreeNode nodo) {
   float min_x = nodo.child[0].first.x1;
   float max_x = nodo.child[0].first.x2;
