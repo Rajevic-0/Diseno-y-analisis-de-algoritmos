@@ -16,7 +16,7 @@
  * Función auxiliar que implementa STR de forma recursiva.
  * 1. Se ordenan los rectángulos por el centro de la coordenada X.
  * 2. Se juntan en sqrt(n/b) grupos consecutivos.
- * 3. Se ordenan los rectángulos según la coordenada Y del centro del triángulo
+ * 3. Se ordenan los rectángulos según la coordenada Y del centro del mismo.
  * y se dividen nuevamente en sqrt(n/b) grupos para cada grupo del paso 2.
  * 4. Se guardan los n/b nodos creados en el vector de nodos dejando el primer
  * espacio vacío.
