@@ -69,9 +69,9 @@ void r_query() {
       double desviacion = std::sqrt(std::abs(varianza));
 
       std::cout << "---- " << nombres[k] << " ----" << std::endl;
-      std::cout << "Promedio de lecturas a disco: " << lecturas[k][i] / 100
+      std::cout << "Promedio de lecturas a disco: " << (double)lecturas[k][i] / 100
               << std::endl;
-      std::cout << "Promedio de puntos encontrados: " << suma / 100
+      std::cout << "Promedio de puntos encontrados: " << promedio
               << std::endl;
       std::cout << "Desviación estandar: " << desviacion << std::endl;
     }
@@ -90,8 +90,8 @@ void r_query() {
 void bonus_query() {
   RTree europa_bonus("europa-bonus.bin");
   Key cuadrado;
-  cuadrado = {12.321901663327694, 12.725451531659424, 41.75304190646573,
-              42.060067277255634};
+  cuadrado = {5.662065396260891, 18.90970478446205, 36.387839863769806,
+              47.01632746811377};
   int lecturas = 0;
   std::vector<Key> results = europa_bonus.searchPoints(cuadrado, lecturas);
   for (const auto &punto : results) {
