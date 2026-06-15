@@ -1,0 +1,42 @@
+#ifndef SPLAY_TREE_HPP
+#define SPLAY_TREE_HPP
+
+#include "tree-rotations.hpp"
+
+/**
+ * @brief Clase que implementa un árbol Splay
+ * Un árbol binario de búsqueda auto-balanceado donde el elemento 
+ * accedido es llevado a la raíz mediante splaying
+ */
+class SplayTree : public TreeRotations {
+private:
+    NODO* raiz;
+    
+    NODO* splay(NODO* nodo, int x);
+    
+public:
+    SplayTree() : raiz(nullptr) {}
+    
+    /**
+     * @brief Realiza la operación de splay en un valor
+     * Lleva el nodo con valor x a la raíz del árbol
+     */
+    NODO* splay(int x);
+    
+    /**
+     * @brief Busca un valor en el árbol
+     */
+    NODO* search(int x);
+    
+    /**
+     * @brief Inserta un valor en el árbol
+     */
+    void insert(int x);
+    
+    /**
+     * @brief Obtiene la raíz del árbol
+     */
+    NODO* getRoot() const { return raiz; }
+};
+
+#endif
