@@ -8,6 +8,19 @@
 
 std::mt19937 gen(std::random_device{}());
 
+std::vector<uint32_t> leerDataset(const std::string& filename) {
+    std::ifstream file(filename);
+
+    std::vector<uint32_t> valores;
+    uint32_t valor;
+
+    while (file >> valor) {
+        valores.push_back(valor);
+    }
+
+    return valores;
+}
+
 std::vector<int> gen_working_set(int W) {
     int N = 1 << 25;
     std::uniform_int_distribution<int> dist(1, N);
@@ -24,11 +37,6 @@ uint32_t distribucion() {
     return dist(gen);
 }
 
-double funcion_p(int N, int i) {
-    double lambda = 0.025; 
-
-    return std::exp(-lambda * i) * (1.0 - std::exp(-lambda)) / (1.0 - std::exp(-lambda * N));
-}
 
 void construction_dataset() {
   for (int i = 10; i < 15; i++) {
@@ -54,20 +62,25 @@ void construction() {
       std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
 
   for (int i = 10; i < 15; i++) {
+    int N = 1 << i;
+    int M = 10*c * N;
+    std::vector<uint32_t> valores = leerDataset("dataset_" + std::to_string(i) + ".txt")
+    
+
     std::cout << "-------------------- 2^" << i << " --------------------"
               << std::endl;
     std::cout << "---- Aleatoria, uniforme ---" << std::endl;
     std::cout << "- AVL -" << std::endl;
     
     inicio = std::chrono::high_resolution_clock::now();
-    avl_tree = build_random("dataset_" + std::to_string(i) + ".txt");
+    avl_tree = build_random(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
     std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    avl_tree.uniform_search(i, c);
+    avl_tree.uniform_search(valores, N, M);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -76,14 +89,14 @@ void construction() {
     std::cout << "- Splay -" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    splay_tree = build_random("dataset_" + std::to_string(i) + ".txt");
+    splay_tree = build_random(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
     std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    splay_tree.uniform_search(i, c);
+    splay_tree.uniform_search(valores, N, M);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -94,14 +107,14 @@ void construction() {
     std::cout << "- AVL -" << std::endl;
     
     inicio = std::chrono::high_resolution_clock::now();
-    avl_tree = build_random("dataset_" + std::to_string(i) + ".txt");
+    avl_tree = build_random(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
     std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    avl_tree.biased_search(i, c);
+    avl_tree.biased_search(valores, N, M);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -110,14 +123,14 @@ void construction() {
     std::cout << "- Splay -" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    splay_tree = build_random("dataset_" + std::to_string(i) + ".txt");
+    splay_tree = build_random(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
     std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    splay_tree.biased_search(i, c);
+    splay_tree.biased_search(valores, N, M);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -128,14 +141,14 @@ void construction() {
     std::cout << "- AVL -" << std::endl;
     
     inicio = std::chrono::high_resolution_clock::now();
-    avl_tree = build_ordered("dataset_" + std::to_string(i) + ".txt");
+    avl_tree = build_ordered(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
     std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    avl_tree.uniform_search(i, c);
+    avl_tree.uniform_search(valores, N, M);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -144,14 +157,14 @@ void construction() {
     std::cout << "- Splay -" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    splay_tree = build_ordered("dataset_" + std::to_string(i) + ".txt");
+    splay_tree = build_ordered(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
     std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    splay_tree.uniform_search(i, c);
+    splay_tree.uniform_search(valores, N, M);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -162,14 +175,14 @@ void construction() {
     std::cout << "- AVL -" << std::endl;
     
     inicio = std::chrono::high_resolution_clock::now();
-    avl_tree = build_ordered("dataset_" + std::to_string(i) + ".txt");
+    avl_tree = build_ordered(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
     std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    avl_tree.biased_search(i, c);
+    avl_tree.biased_search(valores, N, M);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -178,14 +191,14 @@ void construction() {
     std::cout << "- Splay -" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    splay_tree = build_ordered("dataset_" + std::to_string(i) + ".txt");
+    splay_tree = build_ordered(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
     std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    splay_tree.biased_search(i, c);
+    splay_tree.biased_search(valores, N, M);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -204,7 +217,7 @@ void construction_dataset_25() {
   return;
 }
 
-void construction() {
+void construction_teo() {
   int N = 1 << 25;
   AVL avl_tree;
   SPLAY splay_tree;
@@ -251,6 +264,7 @@ void construction() {
   int c = 6;
   int M = 10*c * N;
   std::vector<int> working_set_i;
+  std::vector<uint32_t> valores = leerDataset("dataset_25.txt");
   for (int i = 1; i < 7; i++) {
       W *= 10;
       working_set_i = gen_working_set(W);
@@ -259,7 +273,7 @@ void construction() {
       std::cout << "- AVL -" << std::endl;
       
       inicio = std::chrono::high_resolution_clock::now();
-      avl_tree.work_set(N, working_set_i);
+      avl_tree.work_set(valores, working_set_i, N, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
           std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -268,7 +282,7 @@ void construction() {
       std::cout << "- Splay Tree -" << std::endl;
       
       inicio = std::chrono::high_resolution_clock::now();
-      splay_tree.work_set(N, working_set_i);
+      splay_tree.work_set(valores, working_set_i, N, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
           std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -276,4 +290,6 @@ void construction() {
   }
   return;
 }
+
+
 
