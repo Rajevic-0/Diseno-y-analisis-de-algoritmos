@@ -32,6 +32,7 @@ std::vector<int> gen_working_set(int W) {
     for (int i = 0; i < W; i++){
         v.push_back(dist(gen));
     }
+    return v;
 }
 
 uint32_t distribucion() {
@@ -56,8 +57,6 @@ void construction_dataset() {
 // Escenarios Base
 void construction() {
   int c = 1;
-  AVLTree avl_tree;
-  SplayTree splay_tree;
 
   auto inicio = std::chrono::high_resolution_clock::now();
   auto fin = std::chrono::high_resolution_clock::now();
@@ -75,137 +74,158 @@ void construction() {
     std::cout << "---- Aleatoria, uniforme ---" << std::endl;
     std::cout << "- AVL -" << std::endl;
     
-    inicio = std::chrono::high_resolution_clock::now();
-    avl_tree.build_random(valores);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+    {
+      AVLTree avl_tree;
+      inicio = std::chrono::high_resolution_clock::now();
+      avl_tree.build_random(valores);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
-    inicio = std::chrono::high_resolution_clock::now();
-    avl_tree.uniform_search(valores, N, M);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+      inicio = std::chrono::high_resolution_clock::now();
+      avl_tree.uniform_search(valores, N, M);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+    }
 
     std::cout << "- Splay -" << std::endl;
 
-    inicio = std::chrono::high_resolution_clock::now();
-    splay_tree.build_random(valores);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+    {
+      SplayTree splay_tree;
+      inicio = std::chrono::high_resolution_clock::now();
+      splay_tree.build_random(valores);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
-    inicio = std::chrono::high_resolution_clock::now();
-    splay_tree.uniform_search(valores, N, M);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
-
+      inicio = std::chrono::high_resolution_clock::now();
+      splay_tree.uniform_search(valores, N, M);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+    }
 
     std::cout << "---- Aleatoria, sesgada ---" << std::endl;
     std::cout << "- AVL -" << std::endl;
     
-    inicio = std::chrono::high_resolution_clock::now();
-    avl_tree.build_random(valores);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+    {
+      AVLTree avl_tree;
+      inicio = std::chrono::high_resolution_clock::now();
+      avl_tree.build_random(valores);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
-    inicio = std::chrono::high_resolution_clock::now();
-    avl_tree.biased_search(valores, N, M);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+      inicio = std::chrono::high_resolution_clock::now();
+      avl_tree.biased_search(valores, N, M);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+    }
 
     std::cout << "- Splay -" << std::endl;
 
-    inicio = std::chrono::high_resolution_clock::now();
-    splay_tree.build_random(valores);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+    {
+      SplayTree splay_tree;
+      inicio = std::chrono::high_resolution_clock::now();
+      splay_tree.build_random(valores);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
-    inicio = std::chrono::high_resolution_clock::now();
-    splay_tree.biased_search(valores, N, M);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
-
+      inicio = std::chrono::high_resolution_clock::now();
+      splay_tree.biased_search(valores, N, M);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+    }
 
     std::cout << "---- Ordenada, uniforme ---" << std::endl;
     std::cout << "- AVL -" << std::endl;
     
-    inicio = std::chrono::high_resolution_clock::now();
-    avl_tree.build_ordered(valores);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+    {
+      AVLTree avl_tree;
+      inicio = std::chrono::high_resolution_clock::now();
+      avl_tree.build_ordered(valores);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
-    inicio = std::chrono::high_resolution_clock::now();
-    avl_tree.uniform_search(valores, N, M);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+      inicio = std::chrono::high_resolution_clock::now();
+      avl_tree.uniform_search(valores, N, M);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+    }
 
     std::cout << "- Splay -" << std::endl;
 
-    inicio = std::chrono::high_resolution_clock::now();
-    splay_tree.build_ordered(valores);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+    {
+      SplayTree splay_tree;
+      inicio = std::chrono::high_resolution_clock::now();
+      splay_tree.build_ordered(valores);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
-    inicio = std::chrono::high_resolution_clock::now();
-    splay_tree.uniform_search(valores, N, M);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
-
+      inicio = std::chrono::high_resolution_clock::now();
+      splay_tree.uniform_search(valores, N, M);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+    }
 
     std::cout << "---- Ordenada, sesgada ---" << std::endl;
     std::cout << "- AVL -" << std::endl;
     
-    inicio = std::chrono::high_resolution_clock::now();
-    avl_tree.build_ordered(valores);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+    {
+      AVLTree avl_tree;
+      inicio = std::chrono::high_resolution_clock::now();
+      avl_tree.build_ordered(valores);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
-    inicio = std::chrono::high_resolution_clock::now();
-    avl_tree.biased_search(valores, N, M);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+      inicio = std::chrono::high_resolution_clock::now();
+      avl_tree.biased_search(valores, N, M);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+    }
 
     std::cout << "- Splay -" << std::endl;
 
-    inicio = std::chrono::high_resolution_clock::now();
-    splay_tree.build_ordered(valores);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+    {
+      SplayTree splay_tree;
+      inicio = std::chrono::high_resolution_clock::now();
+      splay_tree.build_ordered(valores);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
 
-    inicio = std::chrono::high_resolution_clock::now();
-    splay_tree.biased_search(valores, N, M);
-    fin = std::chrono::high_resolution_clock::now();
-    tiempo =
-        std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-    std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+      inicio = std::chrono::high_resolution_clock::now();
+      splay_tree.biased_search(valores, N, M);
+      fin = std::chrono::high_resolution_clock::now();
+      tiempo =
+          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+    }
   }
   return;
 }
@@ -269,7 +289,6 @@ void construction_teo() {
   int c = 1;
   int M = 10*c * N;
   std::vector<int> working_set_i;
-  std::vector<uint32_t> valores = leerDataset("dataset_25.txt");
   for (int i = 1; i < 7; i++) {
       W *= 10;
       working_set_i = gen_working_set(W);

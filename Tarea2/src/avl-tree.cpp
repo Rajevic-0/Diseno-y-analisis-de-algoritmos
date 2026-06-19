@@ -93,13 +93,13 @@ void AVLTree::uniform_search(const std::vector<uint32_t>& valores, int N, int M)
 }
 
 
-double funcion_p(int N, int i) {
+static double funcion_p(int N, int i) {
     double lambda = 0.025; 
 
     return std::exp(-lambda * i) * (1.0 - std::exp(-lambda)) / (1.0 - std::exp(-lambda * N));
 }
 
-std::vector<double> vector_funcion_p(int N) {
+static std::vector<double> vector_funcion_p(int N) {
     std::vector<double> c_dist(N);
 
     double acum = 0.0;
@@ -113,7 +113,7 @@ std::vector<double> vector_funcion_p(int N) {
     return c_dist;
 }
 
-int gen_indice_exp(const std::vector<double>& c_dist) {
+static int gen_indice_exp(const std::vector<double>& c_dist) {
     double a = (double) rand() / RAND_MAX;
 
     auto it = std::lower_bound(
@@ -135,7 +135,7 @@ void AVLTree::biased_search(const std::vector<uint32_t>& valores, int N, int M) 
     }
 }
 
-void AVLTree::seq_access(int N, int m) {
+void AVLTree::seq_access([[maybe_unused]] int N, int m) {
     uint32_t val = 0;
 
     for (int i = 0; i < m; i++) {
@@ -144,7 +144,7 @@ void AVLTree::seq_access(int N, int m) {
     }
 }
 
-void AVLTree::work_set(const std::vector<uint32_t>& valores, const std::vector<int>& working_set_i, int N, int M) {
+void AVLTree::work_set(const std::vector<uint32_t>& valores, const std::vector<int>& working_set_i, [[maybe_unused]] int N, int M) {
     int W = working_set_i.size();
     std::vector<uint32_t> working_set(W);
     for (int i = 0; i < W; i++) {
