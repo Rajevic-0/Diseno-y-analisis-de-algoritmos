@@ -3,11 +3,14 @@
 #include <string>
 #include <cstdint>
 
-NODO* ARBOL::splay(int x) {
-    return splay(arbol.raiz, x);
+#include "../include/splay-tree.hpp"
+
+NODO* SplayTree::splay(int x) {
+    raiz = splay(raiz, x);
+    return raiz;
 }
 
-NODO* ARBOL::splay(NODO* nodo, int x) {
+NODO* SplayTree::splay(NODO* nodo, int x) {
     if (nodo == nullptr || nodo->valor == x)
         return nodo;
 
@@ -46,9 +49,9 @@ NODO* ARBOL::splay(NODO* nodo, int x) {
     }
 } 
 
-NODO* ARBOL::search(int x) {
-    Nodo* nodo = raiz;
-    Nodo* anterior = nullptr;
+NODO* SplayTree::search(int x) {
+    NODO* nodo = raiz;
+    NODO* anterior = nullptr;
 
     while (nodo != nullptr) {
         anterior = nodo;
@@ -70,35 +73,35 @@ NODO* ARBOL::search(int x) {
     return nullptr;
 }
 
-void ARBOL::insert(int x) {
+void SplayTree::insert(int x) {
     if (raiz == nullptr) {
-        raiz = new Nodo(x);
+        raiz = new NODO(x);
         return;
     }
 
-    Nodo* nodo = raiz;
+    NODO* nodo = raiz;
 
     while (true) {
         if (x < nodo->valor) {
             if (nodo->izq == nullptr) {
-                nodo->izq = new Nodo(x);
+                nodo->izq = new NODO(x);
                 break;
             }
 
             nodo = nodo->izq;
         } else if (x > nodo->valor) {
             if (nodo->der == nullptr) {
-                nodo->der = new Nodo(x);
+                nodo->der = new NODO(x);
                 break;
             }
             
             nodo = nodo->der;
         } else {
-            return raiz;
+            return;
         }
     }
 
-    return splay(x);
+    splay(x);
 }
 
 
