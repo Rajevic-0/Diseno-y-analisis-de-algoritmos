@@ -36,7 +36,7 @@ NODO* SplayTree::splay(NODO* nodo, int x) {
         if (nodo->der == nullptr)
             return nodo;
 
-        if (x < nodo->izq->valor) {
+        if (x < nodo->der->valor) {
             nodo->der->izq = splay(nodo->der->izq, x);
             return zagZig(nodo);
         }    
