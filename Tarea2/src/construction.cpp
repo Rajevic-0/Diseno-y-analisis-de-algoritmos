@@ -264,7 +264,7 @@ void construction_teo() {
       std::cout << "- AVL -" << std::endl;
       
       inicio = std::chrono::high_resolution_clock::now();
-      avl_tree.seq_access(N, m);
+      avl_tree.seq_access(m);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
           std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -273,7 +273,7 @@ void construction_teo() {
       std::cout << "- Splay Tree -" << std::endl;
       
       inicio = std::chrono::high_resolution_clock::now();
-      splay_tree.seq_access(N, m);
+      splay_tree.seq_access(m);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
           std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -297,7 +297,7 @@ void construction_teo() {
       std::cout << "- AVL -" << std::endl;
       
       inicio = std::chrono::high_resolution_clock::now();
-      avl_tree.work_set(valores, working_set_i, N, M);
+      avl_tree.work_set(valores, working_set_i, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
           std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -306,7 +306,7 @@ void construction_teo() {
       std::cout << "- Splay Tree -" << std::endl;
       
       inicio = std::chrono::high_resolution_clock::now();
-      splay_tree.work_set(valores, working_set_i, N, M);
+      splay_tree.work_set(valores, working_set_i, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
           std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);

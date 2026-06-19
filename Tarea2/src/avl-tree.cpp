@@ -135,7 +135,7 @@ void AVLTree::biased_search(const std::vector<uint32_t>& valores, int N, int M) 
     }
 }
 
-void AVLTree::seq_access([[maybe_unused]] int N, int m) {
+void AVLTree::seq_access(int m) {
     uint32_t val = 0;
 
     for (int i = 0; i < m; i++) {
@@ -144,7 +144,7 @@ void AVLTree::seq_access([[maybe_unused]] int N, int m) {
     }
 }
 
-void AVLTree::work_set(const std::vector<uint32_t>& valores, const std::vector<int>& working_set_i, [[maybe_unused]] int N, int M) {
+void AVLTree::work_set(const std::vector<uint32_t>& valores, const std::vector<int>& working_set_i, int M) {
     int W = working_set_i.size();
     std::vector<uint32_t> working_set(W);
     for (int i = 0; i < W; i++) {
