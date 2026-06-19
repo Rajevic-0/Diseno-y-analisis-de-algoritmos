@@ -55,6 +55,44 @@ NODO* AVLTree:: insert(NODO* nodo, int x) {
     return nodo;
 }
 
+void AVLTree::build(const std::vector<uint32_t>& valores) {
+    for (uint32_t x: valores) {
+        insert(x);
+    }
+}
+
+void AVLTree::build_random(const std::vector<uint32_t>& valores) {
+    std::vector<uint32_t> val_random = valores;
+
+    std::mt19937 gen(std::random_device{}());
+    std::shuffle(val_random.begin(), val_random.end(), gen);
+
+    for (uint32_t x: val_random) {
+        insert(x);
+    }
+}
+
+void AVLTree::build_ordered(const std::vector<uint32_t>& valores) {
+    std::vector<uint32_t> val_ordenados = valores;
+
+    std::mt19937 gen(std::random_device{}());
+    std::sort(val_ordenados.begin(), val_ordenados.end());
+
+    for (uint32_t x: val_ordenados) {
+        insert(x);
+    }
+}
+
+void AVLTree::uniform_search(const std::vector<uint32_t>& valores, int N, int M) {
+    std::mt19937 gen(std::random_device{}());
+    std::uniform_int_distribution<size_t> dist(0, N - 1);
+
+    for (int i = 0; i < M; i++) {
+        search(valores[dist(gen)]);
+    }
+}
+
+
 double funcion_p(int N, int i) {
     double lambda = 0.025; 
 
@@ -87,41 +125,6 @@ int gen_indice_exp(const std::vector<double>& c_dist) {
     return it - c_dist.begin();
 }
 
-void AVLTree::build(const std::vector<uint32_t>& valores) {
-    for (uint32_t x: valores) {
-        insert(x);
-    }
-}
-
-void AVLTree::build_random(const std::vector<uint32_t>&valores){
-    std::vector<uint32_t> val_random = valores;
-    std::mt19937 gen(std::random_device{}());
-    std::shuffle(val_random.begin(), val_random.end(), gen);
-
-    for (uint32_t x : val_random) {
-        insert(x);
-    }
-}
-
-void AVLTree::build_ordered(const std::vector<uint32_t>& valores) {
-    std::vector<uint32_t> val_ordenados = valores;
-
-    std::mt19937 gen(std::random_device{}());
-    std::sort(val_ordenados.begin(), val_ordenados.end());
-
-    for (uint32_t x: val_ordenados) {
-        insert(x);
-    }
-}
-
-void AVLTree::uniform_search(const std::vector<uint32_t>& valores, int N, int M) {
-    std::mt19937 gen(std::random_device{}());
-    std::uniform_int_distribution<size_t> dist(0, N - 1);
-
-    for (int i = 0; i < M; i++) {
-        search(valores[dist(gen)]);
-    }
-}
 
 void AVLTree::biased_search(const std::vector<uint32_t>& valores, int N, int M) {
     auto c_dist = vector_funcion_p(N);

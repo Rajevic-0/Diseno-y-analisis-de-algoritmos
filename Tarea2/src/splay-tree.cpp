@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <fstream>
 #include <string>
+#include <random>
 #include <cstdint>
 
 #include "../include/splay-tree.hpp"
@@ -104,14 +105,13 @@ void SplayTree::insert(int x) {
     splay(x);
 }
 
-
-void ARBOL::build(const std::vector<uint32_t>& valores) {
-    for (uint32_t x: values) {
+void SplayTree::build(const std::vector<uint32_t>& valores) {
+    for (uint32_t x: valores) {
         insert(x);
     }
 }
 
-void ARBOL::build_random(const std::vector<uint32_t>& valores) {
+void SplayTree::build_random(const std::vector<uint32_t>& valores) {
     std::vector<uint32_t> val_random = valores;
 
     std::mt19937 gen(std::random_device{}());
@@ -122,7 +122,7 @@ void ARBOL::build_random(const std::vector<uint32_t>& valores) {
     }
 }
 
-void ARBOL::build_ordered(const std::vector<uint32_t>& valores) {
+void SplayTree::build_ordered(const std::vector<uint32_t>& valores) {
     std::vector<uint32_t> val_ordenados = valores;
 
     std::mt19937 gen(std::random_device{}());
@@ -133,7 +133,7 @@ void ARBOL::build_ordered(const std::vector<uint32_t>& valores) {
     }
 }
 
-void ARBOL::uniform_search(const std::vector<uint32_t>& valores, int N, int M) {
+void SplayTree::uniform_search(const std::vector<uint32_t>& valores, int N, int M) {
     std::mt19937 gen(std::random_device{}());
     std::uniform_int_distribution<size_t> dist(0, N - 1);
 
@@ -176,7 +176,7 @@ int gen_indice_exp(const std::vector<double>& c_dist) {
 }
 
 
-void ARBOL::biased_search(const std::vector<uint32_t>& valores, int N, int M) {
+void SplayTree::biased_search(const std::vector<uint32_t>& valores, int N, int M) {
     auto c_dist = vector_funcion_p(N);
 
     for (int i = 0; i < M; i++) {
@@ -185,7 +185,7 @@ void ARBOL::biased_search(const std::vector<uint32_t>& valores, int N, int M) {
     }
 }
 
-void ARBOL::seq_access(int N, int m) {
+void SplayTree::seq_access(int N, int m) {
     uint32_t val = 0;
 
     for (int i = 0; i < m; i++) {
@@ -194,8 +194,8 @@ void ARBOL::seq_access(int N, int m) {
     }
 }
 
-void ARBOL::work_set(const std::vector<uint32_t>& valores, const std::vector<int>& working_set_i, int N, int M) {
-    int W = working_set_i.size()
+void SplayTree::work_set(const std::vector<uint32_t>& valores, const std::vector<int>& working_set_i, int N, int M) {
+    int W = working_set_i.size();
     std::vector<uint32_t> working_set(W);
     for (int i = 0; i < W; i++) {
         working_set[i] = valores[working_set_i[i]];
@@ -203,13 +203,12 @@ void ARBOL::work_set(const std::vector<uint32_t>& valores, const std::vector<int
     uniform_search(working_set, W, M);
 }
 
-//OPCIONALES??
-void ARBOL::clear() {
+void SplayTree::clear() {
     clearRec(raiz);
-    root = nullptr;
+    raiz = nullptr;
 }
 
-void ARBOL::clearRec(NODO* nodo) {
+void SplayTree::clearRec(NODO* nodo) {
     if (nodo == nullptr) return;
     clearRec(nodo->izq);
     clearRec(nodo->der);

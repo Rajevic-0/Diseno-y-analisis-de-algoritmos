@@ -6,6 +6,9 @@
 #include <random>
 #include <cstdint>
 
+#include "../include/splay-tree.hpp"
+#include "../include/avl-tree.hpp"
+
 std::mt19937 gen(std::random_device{}());
 
 std::vector<uint32_t> leerDataset(const std::string& filename) {
@@ -52,9 +55,9 @@ void construction_dataset() {
 
 // Escenarios Base
 void construction() {
-  int c = 6;
-  AVL avl_tree;
-  SPLAY splay_tree;
+  int c = 1;
+  AVLTree avl_tree;
+  SplayTree splay_tree;
 
   auto inicio = std::chrono::high_resolution_clock::now();
   auto fin = std::chrono::high_resolution_clock::now();
@@ -64,7 +67,7 @@ void construction() {
   for (int i = 10; i < 15; i++) {
     int N = 1 << i;
     int M = 10*c * N;
-    std::vector<uint32_t> valores = leerDataset("dataset_" + std::to_string(i) + ".txt")
+    std::vector<uint32_t> valores = leerDataset("dataset_" + std::to_string(i) + ".txt");
     
 
     std::cout << "-------------------- 2^" << i << " --------------------"
@@ -73,7 +76,7 @@ void construction() {
     std::cout << "- AVL -" << std::endl;
     
     inicio = std::chrono::high_resolution_clock::now();
-    avl_tree = build_random(valores);
+    avl_tree.build_random(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -89,7 +92,7 @@ void construction() {
     std::cout << "- Splay -" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    splay_tree = build_random(valores);
+    splay_tree.build_random(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -107,7 +110,7 @@ void construction() {
     std::cout << "- AVL -" << std::endl;
     
     inicio = std::chrono::high_resolution_clock::now();
-    avl_tree = build_random(valores);
+    avl_tree.build_random(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -123,7 +126,7 @@ void construction() {
     std::cout << "- Splay -" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    splay_tree = build_random(valores);
+    splay_tree.build_random(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -141,7 +144,7 @@ void construction() {
     std::cout << "- AVL -" << std::endl;
     
     inicio = std::chrono::high_resolution_clock::now();
-    avl_tree = build_ordered(valores);
+    avl_tree.build_ordered(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -157,7 +160,7 @@ void construction() {
     std::cout << "- Splay -" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    splay_tree = build_ordered(valores);
+    splay_tree.build_ordered(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -175,7 +178,7 @@ void construction() {
     std::cout << "- AVL -" << std::endl;
     
     inicio = std::chrono::high_resolution_clock::now();
-    avl_tree = build_ordered(valores);
+    avl_tree.build_ordered(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -191,7 +194,7 @@ void construction() {
     std::cout << "- Splay -" << std::endl;
 
     inicio = std::chrono::high_resolution_clock::now();
-    splay_tree = build_ordered(valores);
+    splay_tree.build_ordered(valores);
     fin = std::chrono::high_resolution_clock::now();
     tiempo =
         std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
@@ -219,8 +222,8 @@ void construction_dataset_25() {
 
 void construction_teo() {
   int N = 1 << 25;
-  AVL avl_tree;
-  SPLAY splay_tree;
+  AVLTree avl_tree;
+  SplayTree splay_tree;
   
   auto inicio = std::chrono::high_resolution_clock::now();
   auto fin = std::chrono::high_resolution_clock::now();
@@ -229,8 +232,10 @@ void construction_teo() {
   
   std::cout << "-------------------- Sequential Acess Theorem --------------------"
             << std::endl;
-  avl_tree = build("dataset_25.txt");
-  splay_tree = build("dataset_25.txt");
+
+  std::vector<uint32_t> valores = leerDataset("dataset_25.txt");
+  avl_tree.build(valores);
+  splay_tree.build(valores);
   
   for (int i = 1; i < 11; i++) {
       int m = i*(N/100);
@@ -257,11 +262,11 @@ void construction_teo() {
 
   std::cout << "-------------------- Working Set Theorem --------------------"
             << std::endl;
-  avl_tree = build("dataset_25.txt");
-  splay_tree = build("dataset_25.txt");
+  avl_tree.build(valores);
+  splay_tree.build(valores);
   
   int W = 1;
-  int c = 6;
+  int c = 1;
   int M = 10*c * N;
   std::vector<int> working_set_i;
   std::vector<uint32_t> valores = leerDataset("dataset_25.txt");

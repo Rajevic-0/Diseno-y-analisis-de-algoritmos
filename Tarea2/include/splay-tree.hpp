@@ -2,6 +2,8 @@
 #define SPLAY_TREE_HPP
 
 #include "tree-rotations.hpp"
+#include <vector>
+#include <cstdint>
 
 /**
  * @brief Clase que implementa un árbol Splay
@@ -32,6 +34,17 @@ public:
      * @brief Inserta un valor en el árbol
      */
     void insert(int x);
+
+    void build(const std::vector<uint32_t>& valores);
+    void build_random(const std::vector<uint32_t>& valores);
+    void build_ordered(const std::vector<uint32_t>& valores);
+    void uniform_search(const std::vector<uint32_t>& valores, int N, int M);
+    void biased_search(const std::vector<uint32_t>& valores, int N, int M);
+    void seq_access(int N, int m); 
+    void work_set(const std::vector<uint32_t>& valores, const std::vector<int>& working_set_i, int N, int M); 
+
+    void clear(); 
+    void clearRec(NODO* nodo); 
     
     /**
      * @brief Obtiene la raíz del árbol

@@ -30,6 +30,7 @@ public:
     void biased_search(const std::vector<uint32_t>& valores, int N, int M);
     void seq_access(int N, int m);
     void work_set(const std::vector<uint32_t>& valores, const std::vector<int>& working_set_i, int N, int M);
+    
 
     void clear();
 };
