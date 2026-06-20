@@ -1,26 +1,21 @@
-# Tarea 1: R-tree en c++
+# Tarea 2: AVL-trees y Splay-trees en c++
 
-Este proyecto contiene la implementacion de un R-Tree en c++.
+Este proyecto contiene la implementacion de AVL y Splay trees en c++.
 
 ## Estructura del proyecto
 
 ```bash
-Tarea1/
+Tarea2/
 ├── include/
-│   ├── bulk_loading.hpp
-│   ├── creation.hpp
-│   ├── globals.hpp
-│   └── rtree.hpp
+│   ├── avl-tree.hpp
+│   ├── splay-tree.hpp
+│   └── tree-rotation.hpp
 ├── src/
+│   ├── avl-tree.cpp
 │   ├── construction.cpp
-│   ├── consultas.cpp
-│   ├── create_tree.cpp
-│   ├── globals.cpp
 │   ├── main.cpp
-│   ├── nearest-x.cpp
-│   ├── sort-tile-recursive.cpp
-│   ├── test_load.cpp
-│   └── tree.cpp
+│   ├── splay-tree.cpp
+│   └── tree-rotations.cpp
 ├── .gitignore
 ├── Makefile
 └── README.md
@@ -31,20 +26,18 @@ Para ejecutar el proyecto uno puede hacer:
 
 ### Linux
 ```bash
-make test
-./test construction <dataset_1> <dataset_2>
-./test query
+make construction
+./construction
 ```
 
 ### Windows
 ```bash
-make test
-.\test.exe construction <dataset_1> <dataset_2>
-.\test.exe query
+make construction
+.\construction.exe 
 ```
 En windows make no viene instalado por defecto asi que en caso de no funcionar el compilar se puede probar con 
 ```bash
-mingw32-make test
+mingw32-make contruction
 ```
 Y para ejecutar bonus_query (consulta que devuelve los puntos de latitud/longitud cercanas a Italia)
 
@@ -68,20 +61,6 @@ mingw32-make bonus
 
 Si uno quiere guardar los datos obtenidos en un archivo de texto para luego graficarlo puede hacer 
 ```bash
-./bonus query > bonus.txt
+./contruction > construction.txt
 ```
 Esto funciona para cualquiera de los comandos ejecutables previamente escritos (los que no llevan make). El codigo previamente escrito guarda los puntos obtenidos en la query bonus para luego ser graficados con algun script.
-
-## Datasets
-Este proyecto esta pensado para ser usado con los datasets encontrados en 
-[Descargar datasets](https://github.com/claugaete/tarea1-cc4102-2026-1/releases/tag/Datos)
-
-De la siguiente manera:
-
-| Dataset | Archivo |
-|---|---|
-| Dataset 1 | `random.bin` |
-| Dataset 2 | `europa.bin` |
-| Dataset Bonus | `europa_bonus.bin` |
-
-Puede ser ejecutado con otros datasets pero los nombres no coincidiran con lo ejecutado, ver src/main.cpp, src/construction.cpp y src/consultas.cpp si se quiere modificar este proyecto para ser ejecutado con otros datasets de puntos.
