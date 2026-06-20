@@ -28,7 +28,7 @@ public:
     void build_ordered(const std::vector<uint32_t>& valores);
     void uniform_search(const std::vector<uint32_t>& valores, int N, int M);
     void biased_search(const std::vector<uint32_t>& valores, int N, int M);
-    void seq_access(int m);
+    void seq_access(const std::vector<uint32_t>& valores, uint64_t m); 
     void work_set(const std::vector<uint32_t>& valores, const std::vector<int>& working_set_i, int M);
     
 

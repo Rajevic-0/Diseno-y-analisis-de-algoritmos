@@ -11,66 +11,61 @@ NODO* SplayTree::splay(int x) {
     return raiz;
 }
 
-NODO* SplayTree::splay(NODO* nodo, int x) {
-    if (nodo == nullptr || nodo->valor == x)
-        return nodo;
+NODO* SplayTree::splay(NODO* raizArbol, int x) {
+    if (raizArbol == nullptr) return nullptr;
 
-    if (x < nodo->valor) {
-        if (nodo->izq == nullptr)
-            return nodo;
+    NODO cabecera(0);          
+    NODO* L = &cabecera;       
+    NODO* R = &cabecera;       
+    NODO* nodo = raizArbol;
 
-        if (x < nodo->izq->valor) {
-            nodo->izq->izq = splay(nodo->izq->izq, x);
-            return zigZig(nodo);
-        }    
-
-        if (x > nodo->izq->valor) {
-            nodo->izq->der = splay(nodo->izq->der, x);
-            return zigZag(nodo);
-        }    
-
-        return zig(nodo);
-    }
-
-    else {
-        if (nodo->der == nullptr)
-            return nodo;
-
-        if (x < nodo->der->valor) {
-            nodo->der->izq = splay(nodo->der->izq, x);
-            return zagZig(nodo);
-        }    
-
-        if (x > nodo->der->valor) {
-            nodo->der->der = splay(nodo->der->der, x);
-            return zagZag(nodo);
-        }    
-
-        return zag(nodo);
-    }
-} 
-
-NODO* SplayTree::search(int x) {
-    NODO* nodo = raiz;
-    NODO* anterior = nullptr;
-
-    while (nodo != nullptr) {
-        anterior = nodo;
-
+    while (true) {
         if (x < nodo->valor) {
+            if (nodo->izq == nullptr) break;
+
+            if (x < nodo->izq->valor) {
+                NODO* hijo = nodo->izq;
+                nodo->izq = hijo->der;
+                hijo->der = nodo;
+                nodo = hijo;
+                if (nodo->izq == nullptr) break;
+            }
+
+            R->izq = nodo;
+            R = nodo;
             nodo = nodo->izq;
+
         } else if (x > nodo->valor) {
+            if (nodo->der == nullptr) break;
+
+            if (x > nodo->der->valor) {
+                NODO* hijo = nodo->der;
+                nodo->der = hijo->izq;
+                hijo->izq = nodo;
+                nodo = hijo;
+                if (nodo->der == nullptr) break;
+            }
+
+            L->der = nodo;
+            L = nodo;
             nodo = nodo->der;
+
         } else {
-            splay(x);
-            return raiz;
+            break; 
         }
     }
-    
-    if (anterior != nullptr) {
-        splay(anterior->valor);
-    }
-    
+
+    L->der = nodo->izq;
+    R->izq = nodo->der;
+    nodo->izq = cabecera.der;
+    nodo->der = cabecera.izq;
+
+    return nodo;
+}
+NODO* SplayTree::search(int x) {
+    raiz = splay(raiz, x);
+    if (raiz != nullptr && raiz->valor == x)
+        return raiz;
     return nullptr;
 }
 
@@ -185,12 +180,15 @@ void SplayTree::biased_search(const std::vector<uint32_t>& valores, int N, int M
     }
 }
 
-void SplayTree::seq_access(int m) {
-    uint32_t val = 0;
-
-    for (int i = 0; i < m; i++) {
-        search(val);
-        val += 1000;
+void SplayTree::seq_access(const std::vector<uint32_t>& valores, uint64_t M) {
+    size_t N = valores.size();
+    std::vector<uint32_t> val_ordenados = valores;
+    std::sort(val_ordenados.begin(), val_ordenados.end());
+    size_t indice = 0;
+    for (uint64_t k = 0; k < M; k++) {
+        search(val_ordenados[indice]);
+        indice += 2;
+        if (indice >= N) indice = N - 1;
     }
 }
 
