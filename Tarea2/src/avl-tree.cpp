@@ -135,12 +135,15 @@ void AVLTree::biased_search(const std::vector<uint32_t>& valores, int N, int M) 
     }
 }
 
-void AVLTree::seq_access(int m) {
-    uint32_t val = 0;
-
-    for (int i = 0; i < m; i++) {
-        search(val);
-        val += 1000;
+void AVLTree::seq_access(const std::vector<uint32_t>& valores, uint64_t M) {
+    size_t N = valores.size();
+    std::vector<uint32_t> val_ordenados = valores;
+    std::sort(val_ordenados.begin(), val_ordenados.end());
+    size_t indice = 0;
+    for (uint64_t k = 0; k < M; k++) {
+        search(val_ordenados[indice]);
+        indice += 2;
+        if (indice >= N) indice = N - 1;
     }
 }
 
