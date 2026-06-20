@@ -54,14 +54,28 @@ void construction_dataset() {
   return;
 }
 
-// Escenarios Base
+void construction_dataset_25() {
+  int N = 1 << 25;
+  std::ofstream out("dataset_25.txt");
+  for (int i = 0; i < N; i++) {
+    out << distribucion() << '\n';
+  }
+  return;
+}
+
 void construction() {
+  construction_dataset();
+  construction_dataset_25(); 
+  std::cout << "Dataset listos" << std::endl;
+}
+
+void escenarios_base() {
   int c = 1;
 
   auto inicio = std::chrono::high_resolution_clock::now();
   auto fin = std::chrono::high_resolution_clock::now();
   auto tiempo =
-      std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+      std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
 
   for (int i = 10; i < 15; i++) {
     int N = 1 << i;
@@ -80,15 +94,15 @@ void construction() {
       avl_tree.build_random(valores);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " nanosegundos" << std::endl;
 
       inicio = std::chrono::high_resolution_clock::now();
       avl_tree.uniform_search(valores, N, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " nanosegundos" << std::endl;
     }
 
     std::cout << "- Splay -" << std::endl;
@@ -99,15 +113,15 @@ void construction() {
       splay_tree.build_random(valores);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " nanosegundos" << std::endl;
 
       inicio = std::chrono::high_resolution_clock::now();
       splay_tree.uniform_search(valores, N, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " nanosegundos" << std::endl;
     }
 
     std::cout << "---- Aleatoria, sesgada ---" << std::endl;
@@ -119,15 +133,15 @@ void construction() {
       avl_tree.build_random(valores);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " nanosegundos" << std::endl;
 
       inicio = std::chrono::high_resolution_clock::now();
       avl_tree.biased_search(valores, N, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " nanosegundos" << std::endl;
     }
 
     std::cout << "- Splay -" << std::endl;
@@ -138,15 +152,15 @@ void construction() {
       splay_tree.build_random(valores);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " nanosegundos" << std::endl;
 
       inicio = std::chrono::high_resolution_clock::now();
       splay_tree.biased_search(valores, N, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " nanosegundos" << std::endl;
     }
 
     std::cout << "---- Ordenada, uniforme ---" << std::endl;
@@ -158,15 +172,15 @@ void construction() {
       avl_tree.build_ordered(valores);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " nanosegundos" << std::endl;
 
       inicio = std::chrono::high_resolution_clock::now();
       avl_tree.uniform_search(valores, N, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " nanosegundos" << std::endl;
     }
 
     std::cout << "- Splay -" << std::endl;
@@ -177,15 +191,15 @@ void construction() {
       splay_tree.build_ordered(valores);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " nanosegundos" << std::endl;
 
       inicio = std::chrono::high_resolution_clock::now();
       splay_tree.uniform_search(valores, N, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " nanosegundos" << std::endl;
     }
 
     std::cout << "---- Ordenada, sesgada ---" << std::endl;
@@ -197,15 +211,15 @@ void construction() {
       avl_tree.build_ordered(valores);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " nanosegundos" << std::endl;
 
       inicio = std::chrono::high_resolution_clock::now();
       avl_tree.biased_search(valores, N, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " nanosegundos" << std::endl;
     }
 
     std::cout << "- Splay -" << std::endl;
@@ -216,31 +230,22 @@ void construction() {
       splay_tree.build_ordered(valores);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de inserción: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de inserción: " << tiempo.count() << " nanosegundos" << std::endl;
 
       inicio = std::chrono::high_resolution_clock::now();
       splay_tree.biased_search(valores, N, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
-          std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+          std::chrono::duration_cast<std::chrono::nanoseconds>(fin - inicio);
+      std::cout << "Tiempo de busqueda: " << tiempo.count() << " nanosegundos" << std::endl;
     }
   }
   return;
 }
 
-// Teoremas
-void construction_dataset_25() {
-  int N = 1 << 25;
-  std::ofstream out("dataset_25.txt");
-  for (int i = 0; i < N; i++) {
-    out << distribucion() << '\n';
-  }
-  return;
-}
 
-void construction_teo() {
+void sequential() {
   int N = 1 << 25;
   AVLTree avl_tree;
   SplayTree splay_tree;
@@ -254,36 +259,56 @@ void construction_teo() {
             << std::endl;
 
   std::vector<uint32_t> valores = leerDataset("dataset_25.txt");
-  avl_tree.build(valores);
+  std::cout << "Termina de leer" << std::endl;
+
+  //avl_tree.build(valores);
   splay_tree.build(valores);
   
   for (int i = 1; i < 11; i++) {
-      int m = i*(N/100);
+      uint32_t M = i*(N/100);
+
+      std::cout << M << std::endl;
   
       std::cout << "---- m = " << i << "*N/100 ---" << std::endl;
       std::cout << "- AVL -" << std::endl;
       
       inicio = std::chrono::high_resolution_clock::now();
-      avl_tree.seq_access(m);
+      //avl_tree.seq_access(valores, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
           std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
-      std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
+      //std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
 
       std::cout << "- Splay Tree -" << std::endl;
       
       inicio = std::chrono::high_resolution_clock::now();
-      splay_tree.seq_access(m);
+      splay_tree.seq_access(valores, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
           std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
       std::cout << "Tiempo de busqueda: " << tiempo.count() << " milisegundos" << std::endl;
   }
 
+  return;
+}
+
+void working() {
+  int N = 1 << 25;
+  AVLTree avl_tree;
+  SplayTree splay_tree;
+  
+  auto inicio = std::chrono::high_resolution_clock::now();
+  auto fin = std::chrono::high_resolution_clock::now();
+  auto tiempo =
+      std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
+  
+  std::vector<uint32_t> valores = leerDataset("dataset_25.txt");
+
+  //avl_tree.build(valores);
+  splay_tree.build(valores);
+  
   std::cout << "-------------------- Working Set Theorem --------------------"
             << std::endl;
-  avl_tree.build(valores);
-  splay_tree.build(valores);
   
   int W = 1;
   int c = 1;
@@ -297,7 +322,7 @@ void construction_teo() {
       std::cout << "- AVL -" << std::endl;
       
       inicio = std::chrono::high_resolution_clock::now();
-      avl_tree.work_set(valores, working_set_i, M);
+      //avl_tree.work_set(valores, working_set_i, M);
       fin = std::chrono::high_resolution_clock::now();
       tiempo =
           std::chrono::duration_cast<std::chrono::milliseconds>(fin - inicio);
